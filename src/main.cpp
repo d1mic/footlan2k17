@@ -1,29 +1,53 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+class Game{
+public:
+	Game()
+	:GameWindow(sf::VideoMode(600, 800), "Footlan2k17")
+	, Player1()
+	{
+		Player1.setRadius(50);
+		Player1.setFillColor(sf::Color::Red);
+		Player1.setPosition(100, 100);
+	}
 
-int main(int argc, char *argv[])
-{	
-	
-	sf::RenderWindow window(sf::VideoMode(600, 800), "Footlan2k17");
-	sf::CircleShape circle(50);
-	circle.setFillColor(sf::Color::Red);
-	circle.setOutlineColor(sf::Color::Blue);
-	circle.setOutlineThickness(10);
-	circle.setPosition(100, 100);
+	void run(){
+		while (GameWindow.isOpen()) {
+			proccessEvents();
+			update();
+			render();
+		}
+	}
 
-	while (window.isOpen()) {
+private:
+	void proccessEvents(){
 		sf::Event event;
-		while (window.pollEvent(event)) {
+		while (GameWindow.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
-				window.close();
+				GameWindow.close();
 			}
 		}
-
-		window.clear(sf::Color::Black);
-		window.draw(circle);
-		window.display();
 	}
+	void update(){
+
+	}
+	void render(){
+		GameWindow.clear(sf::Color::Black);
+		GameWindow.draw(Player1);
+		GameWindow.display();
+	}
+
+	sf::RenderWindow GameWindow;
+	sf::CircleShape Player1;
+};
+
+
+
+int main(int argc, char *argv[])
+{
+	Game game;
+	game.run();
 	//	g++ main.cpp -lsfml-window -lsfml-system -lsfml-graphics
 
 	return 0;
