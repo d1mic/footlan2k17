@@ -15,5 +15,7 @@ private:
 	void render();
 	sf::RenderWindow GameWindow;
 	sf::CircleShape Player1;
+	sf::Texture bkgTexture;
+	sf::Sprite bkgSprite;
 };
 #endif
