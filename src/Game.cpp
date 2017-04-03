@@ -7,11 +7,16 @@ Game::Game()
 	bkgTexture(),
 	bkgSprite()
 {
+	GameWindow.setFramerateLimit(60);
+	/* Postavio sam limit 60 FPS cisto da vidimo kako ce da se ponasa, ako ne bude valjalo,
+	*  pravicemo svoje
+	*/
+
 	Player1.setRadius(35);
 	Player1.setFillColor(sf::Color::Blue);
 	Player1.setPosition(100, 100);
 
-	if(!bkgTexture.loadFromFile("img/footBall.png")){
+	if(!bkgTexture.loadFromFile("../assets/images/footBall.png")){
 		//std::cout<<"Error loading picture"<<std::endl;
 		//GameWindow.close();
 	}
