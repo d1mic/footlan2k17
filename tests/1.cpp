@@ -10,7 +10,7 @@ int posX_receive=100,posY_receive=220,y=5,posX_send=330,posY_send=50;
 sf::UdpSocket receiver;
 sf::SocketSelector selector;
 sf::UdpSocket sender;
-sf::IpAddress ipAddress=sf::IpAddress::getLocalAddress();
+sf::IpAddress ipAddress = sf::IpAddress::getLocalAddress();
 // Paketi u kojima su smesteni podaci koji se salju i primaju
 sf::Packet packet_send;
 sf::Packet packet_receive;
@@ -23,8 +23,7 @@ void sendMessage(sf::Clock &clock);
 int main ()
 {
   // Sat koji sluzi kao timer
-  sf::Clock clock;
-
+  
   // "Vezivanje" socketa za port gde ce osluskivati dogadjaje
   receiver.bind(15000);
   // Dodavanje u selektor
