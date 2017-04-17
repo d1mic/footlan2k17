@@ -23,7 +23,7 @@ void sendMessage(sf::Clock &clock);
 int main ()
 {
   // Sat koji sluzi kao timer
-  
+  sf::Clock clock;
   // "Vezivanje" socketa za port gde ce osluskivati dogadjaje
   receiver.bind(15000);
   // Dodavanje u selektor
