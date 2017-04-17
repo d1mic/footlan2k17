@@ -4,7 +4,6 @@
 Game::Game()
 	:GameWindow(sf::VideoMode(550, 800), "Footlan2k17"),
 	Player1(),
-	bkgTexture(),
 	bkgSprite()
 {
 	GameWindow.setFramerateLimit(60);
@@ -16,11 +15,10 @@ Game::Game()
 	Player1.setFillColor(sf::Color::Blue);
 	Player1.setPosition(100, 100);
 
-	if(!bkgTexture.loadFromFile("../assets/images/footBall.png")){
-		//std::cout<<"Error loading picture"<<std::endl;
-		//GameWindow.close();
-	}
-	bkgSprite.setTexture(bkgTexture);
+	textures.load("field", "../assets/images/footBall.png");
+
+
+	bkgSprite.setTexture(textures.get("field"));
 	bkgSprite.setScale(0.677,0.625);
 
 }

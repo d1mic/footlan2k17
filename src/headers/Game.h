@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "ResourceManager.hpp"
 
 class Game {
 public:
@@ -15,7 +16,7 @@ private:
 	void render();
 	sf::RenderWindow GameWindow;
 	sf::CircleShape Player1;
-	sf::Texture bkgTexture;
 	sf::Sprite bkgSprite;
+	ResourceManager<std::string, sf::Texture> textures;
 };
 #endif
