@@ -11,7 +11,7 @@ sf::UdpSocket receiver;
 sf::SocketSelector selector;
 sf::UdpSocket sender;
 // Adresa na koju se salju podaci
-sf::IpAddress ipAddress=sf::IpAddress::getLocalAddress();
+sf::IpAddress ipAddress("192.168.0.111");
 // Paketi u kojima su smesteni podaci koji se salju i primaju
 sf::Packet packet_send;
 sf::Packet packet_receive;
@@ -25,7 +25,8 @@ int main ()
 {
   // Sat koji sluzi kao timer
   sf::Clock clock;
-
+  std::cout << "Novi ip: " << ipAddress << std::endl;
+  std::cout << "Lokalni: " << sf::IpAddress::getLocalAddress();
   // "Vezivanje" socketa za port gde ce osluskivati dogadjaje
   receiver.bind(10000);
   // Dodavanje u selektor
