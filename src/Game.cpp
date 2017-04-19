@@ -2,29 +2,25 @@
 
 
 Game::Game()
-	:GameWindow(sf::VideoMode(550, 800), "Footlan2k17"),
-	Player1(),
-	bkgSprite()
+	:m_gameWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), TITLE)
 {
-	GameWindow.setFramerateLimit(60);
-	/* Postavio sam limit 60 FPS cisto da vidimo kako ce da se ponasa, ako ne bude valjalo,
-	*  pravicemo svoje
-	*/
+	m_gameWindow.setFramerateLimit(60);
+	m_textures.load("ball", "../assets/images/ball.png");
+	m_textures.load("serbia", "../assets/images/serbia.png");
+	m_textures.load("field", "../assets/images/field.png");
 
-	Player1.setRadius(35);
-	Player1.setFillColor(sf::Color::Blue);
-	Player1.setPosition(100, 100);
-
-	textures.load("field", "../assets/images/footBall.png");
-
-
-	bkgSprite.setTexture(textures.get("field"));
-	bkgSprite.setScale(0.677,0.625);
-
+	m_ball = new Entity(100, 100, m_textures.get("ball"));
+	m_serbian_chetnik = new Entity(300, 300, m_textures.get("serbia"));
+	m_field.setTexture(m_textures.get("field"));
+	m_field.setScale(0.677,0.625);
 }
-
+Game::~Game()
+{
+	delete m_ball;
+	delete m_serbian_chetnik;
+}
 void Game::run(){
-	while (GameWindow.isOpen()) {
+	while (m_gameWindow.isOpen()) {
 		proccessEvents();
 		update();
 		render();
@@ -32,17 +28,19 @@ void Game::run(){
 }
 void Game::proccessEvents(){
 	sf::Event event;
-	while (GameWindow.pollEvent(event)) {
+	while (m_gameWindow.pollEvent(event)) {
 		if (event.type == sf::Event::Closed) {
-			GameWindow.close();
+			m_gameWindow.close();
 		}
 	}
 }
 void Game::update(){
+	
 }
 void Game::render(){
-	GameWindow.clear(sf::Color::Black);
-	GameWindow.draw(bkgSprite);
-	GameWindow.draw(Player1);
-	GameWindow.display();
+	m_gameWindow.clear(sf::Color::Black);
+	m_gameWindow.draw(m_field);
+	m_ball->render(m_gameWindow);
+	m_serbian_chetnik->render(m_gameWindow);
+	m_gameWindow.display();
 }
