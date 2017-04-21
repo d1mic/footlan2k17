@@ -44,3 +44,7 @@ void Entity::update() {
 void Entity::render(sf::RenderWindow& window) {
     window.draw(m_image);
 }
+bool Entity::colisionEntity(const Entity& entity){
+  float distance = abs(sqrt(((entity.center().x() - m_position.x()) * (entity.center().x() - m_position.x())) + ((entity.center().y() - m_position.y()) * (entity.center().y() - m_position.y()))));
+  return (distance <= entity.radius() + m_radius)? true : false;
+}

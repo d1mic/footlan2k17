@@ -24,6 +24,8 @@ public:
 
     void update();
     void render(sf::RenderWindow& window);
+
+    bool colisionEntity(const Entity& entity);
 private:
     Vector2f m_position; // Mozda staviti Vector2f
     Vector2f m_center;
