@@ -6,6 +6,7 @@
 const int WINDOW_WIDTH = 550;
 const int WINDOW_HEIGHT = 800;
 const char* TITLE = "FootLan2k17";
+const double UPDATE_TIME = 0.05;
 
 int main(int argc, char *argv[])
 {

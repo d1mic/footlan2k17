@@ -36,6 +36,7 @@ void Game::proccessEvents(){
 	}
 }
 void Game::update(){
+	// Sluzi samo za testiranje tajmera
 	std::cout << "Iiiiideeeemooooo" << std::endl;
 }
 void Game::render(){
@@ -53,7 +54,7 @@ void Game::start()
 
 void Game::checkForUpdate()
 {
-	if (m_clock.getElapsedTime().asSeconds() >= 0.05) {
+	if (m_clock.getElapsedTime().asSeconds() >= UPDATE_TIME) {
 		update();
 		m_clock.restart();
 	}
