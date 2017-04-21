@@ -1,5 +1,5 @@
 #include "headers/Game.h"
-
+#include <iostream>
 
 Game::Game()
 	:m_gameWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), TITLE)
@@ -20,22 +20,24 @@ Game::~Game()
 	delete m_serbian_chetnik;
 }
 void Game::run(){
+	start();
 	while (m_gameWindow.isOpen()) {
 		proccessEvents();
-		update();
+		checkForUpdate();
 		render();
 	}
 }
 void Game::proccessEvents(){
 	sf::Event event;
 	while (m_gameWindow.pollEvent(event)) {
-		if (event.type == sf::Event::Closed) {
+		if (event.type == sf::Event::Closed || (event.type==sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
 			m_gameWindow.close();
 		}
 	}
 }
 void Game::update(){
-
+	// Sluzi samo za testiranje tajmera
+	std::cout << "Iiiiideeeemooooo" << std::endl;
 }
 void Game::render(){
 	m_gameWindow.clear(sf::Color::Black);
@@ -43,4 +45,17 @@ void Game::render(){
 	m_ball->render(m_gameWindow);
 	m_serbian_chetnik->render(m_gameWindow);
 	m_gameWindow.display();
+}
+
+void Game::start()
+{
+	m_clock.restart();
+}
+
+void Game::checkForUpdate()
+{
+	if (m_clock.getElapsedTime().asSeconds() >= UPDATE_TIME) {
+		update();
+		m_clock.restart();
+	}
 }

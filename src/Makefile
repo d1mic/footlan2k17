@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS= -c -Wall -std=c++0x
+CFLAGS= -c -Wall -std=c++11
 LDFLAGS=
 LIBFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 SOURCES = main.cpp Game.cpp Entity.cpp
