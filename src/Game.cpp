@@ -35,7 +35,7 @@ void Game::proccessEvents(){
 	}
 }
 void Game::update(){
-	
+
 }
 void Game::render(){
 	m_gameWindow.clear(sf::Color::Black);
