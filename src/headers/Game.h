@@ -5,7 +5,6 @@
 #include <SFML/Graphics.hpp>
 #include "consts.h"
 #include "ResourceManager.h"
-#include "Vector2.h"
 #include "Entity.h"
 
 class Game {
