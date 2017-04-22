@@ -34,10 +34,12 @@ const int Entity::radius() const {
 }
 
 void Entity::setPosition(double x, double y) {
-    m_position = sf::Vector2f(x, y);
+    m_position.x = x;
+    m_position.y = y;
 }
 void Entity::setPosition(const sf::Vector2f& position) {
-    m_position = position;
+    m_position.x = position.x;
+    m_position.y = position.y;
 }
 
 void Entity::update() {
