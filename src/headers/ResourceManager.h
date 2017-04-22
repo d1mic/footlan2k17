@@ -35,7 +35,6 @@ void ResourceManager<Identifier, Resource>::load(Identifier id, const std::strin
 	auto goodInsert = m_resources.insert(std::make_pair(id, std::move(resource)));
 	assert(goodInsert.second);
 	
-	std::cout << goodInsert.second << std::endl;
 }
 
 template<typename Identifier, typename Resource>
@@ -46,5 +45,8 @@ const Resource& ResourceManager<Identifier, Resource>::get(Identifier id) const
 	
 	return *(found->second);
 }
+
+typedef ResourceManager<std::string, sf::Texture> TextureManager;
+typedef ResourceManager<std::string, sf::Font> FontManager;
 
 #endif
