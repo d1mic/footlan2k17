@@ -1,12 +1,14 @@
 #include "headers/Entity.h"
+#include "headers/consts.h"
+#include <iostream>
 
 Entity::Entity(double x, double y, const sf::Texture& texture)
     :m_position(x, y), m_image(texture)
 {
     m_image.setPosition(x, y);
     m_radius = m_image.getTexture()->getSize().x;
-    m_center.x = x + m_radius ;
-    m_center.y =  y + m_radius;
+    m_center.x = x + m_radius/2;
+    m_center.y =  y + m_radius/2;
 
 
 }
@@ -51,4 +53,14 @@ void Entity::render(sf::RenderWindow& window) {
 bool Entity::colisionEntity(const Entity& entity){
   float distance = abs(sqrt( ( (entity.center().x - m_position.x) * (entity.center().x - m_position.x)) + ((entity.center().y - m_position.y) * (entity.center().y - m_position.y))));
   return (distance <= entity.radius() + m_radius)? true : false;
+}
+
+bool Entity::colisionField()
+{
+  if (m_center.x + m_radius/2 >= WINDOW_WIDTH || m_center.y + m_radius/2 >= WINDOW_HEIGHT
+     || m_center.x - m_radius/2 <= 0 || m_center.y - m_radius/2 <= 0) {
+    return true;
+  }
+
+  return false;
 }

@@ -9,7 +9,7 @@ Game::Game()
 	m_textures.load("serbia", "../assets/images/serbia.png");
 	m_textures.load("field", "../assets/images/field.png");
 
-	m_ball = new Entity(100, 100, m_textures.get("ball"));
+	m_ball = new Entity(0, 0, m_textures.get("ball"));
 	m_serbian_chetnik = new Entity(300, 300, m_textures.get("serbia"));
 	m_field.setTexture(m_textures.get("field"));
 	m_field.setScale(0.677,0.625);
@@ -45,6 +45,7 @@ void Game::render(){
 	m_ball->render(m_gameWindow);
 	m_serbian_chetnik->render(m_gameWindow);
 	m_gameWindow.display();
+	std::cout << m_ball->colisionField() << std::endl;
 }
 
 void Game::start()
