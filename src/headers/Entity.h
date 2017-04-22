@@ -26,11 +26,14 @@ public:
 
     bool colisionEntity(const Entity& entity);
     bool colisionField();
+
+    void move();
 private:
     sf::Vector2f m_position; // Mozda staviti Vector2f
     sf::Vector2f m_center;
     sf::Sprite m_image;
     int m_radius = 0;
+    sf::Vector2f m_direction;
 };
 
 #endif

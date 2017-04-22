@@ -35,17 +35,17 @@ void Game::proccessEvents(){
 		}
 	}
 }
+
 void Game::update(){
-	// Sluzi samo za testiranje tajmera
-	std::cout << "Iiiiideeeemooooo" << std::endl;
+	m_serbian_chetnik->update();
 }
+
 void Game::render(){
 	m_gameWindow.clear(sf::Color::Black);
 	m_gameWindow.draw(m_field);
 	m_ball->render(m_gameWindow);
 	m_serbian_chetnik->render(m_gameWindow);
 	m_gameWindow.display();
-	std::cout << m_ball->colisionField() << std::endl;
 }
 
 void Game::start()
