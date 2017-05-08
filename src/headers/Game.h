@@ -12,7 +12,6 @@ public:
 	Game();
 	~Game();
 	void run();
-
 private:
 	void proccessEvents();
 	void update();

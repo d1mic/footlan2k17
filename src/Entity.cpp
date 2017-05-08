@@ -10,7 +10,7 @@ Entity::Entity(double x, double y, const sf::Texture& texture)
     m_center.x = x + m_radius/2;
     m_center.y =  y + m_radius/2;
     // Stavljeno zbog testiranja funkcije move
-    m_direction.x=5;
+    m_direction.x=7;
     m_direction.y=5;
 }
 Entity::Entity(const sf::Vector2f& position, const sf::Texture& texture)
@@ -44,16 +44,17 @@ void Entity::setPosition(const sf::Vector2f& position) {
     m_position.y = position.y;
 }
 
-void Entity::update() {
-  move();
+void Entity::update(const Entity &other) {
+  move(other);
 }
 
 void Entity::render(sf::RenderWindow& window) {
     window.draw(m_image);
 }
+
 bool Entity::colisionEntity(const Entity& entity){
-  float distance = abs(sqrt( ( (entity.center().x - m_position.x) * (entity.center().x - m_position.x)) + ((entity.center().y - m_position.y) * (entity.center().y - m_position.y))));
-  return (distance <= entity.radius() + m_radius)? true : false;
+  float distance = abs(sqrt(((entity.center().x - m_center.x) * (entity.center().x - m_center.x)) + ((entity.center().y - m_center.y) * (entity.center().y - m_center.y))));
+  return (distance <= entity.radius()/2 + m_radius/2) ? true : false;
 }
 
 bool Entity::colisionField()
@@ -63,15 +64,11 @@ bool Entity::colisionField()
      || m_center.x - m_radius/2 <= 0 || m_center.y - m_radius/2 <= 0) {
     return true;
   }
-
   return false;
 }
 
-void Entity::move()
+void Entity::move(const Entity &other)
 {
-  // Uvecavamo trenutnu poziciju objekta, idemo za x i y koliko kaze vektor pravca
-  m_position.x+=m_direction.x;
-  m_position.y+=m_direction.y;
   // Proveravamo da li je bilo kolizije
   if (colisionField()) {
     // Ako idemo previse levo postavljamo udaranje u levu ivicu i menjamo pravac x
@@ -95,9 +92,18 @@ void Entity::move()
       m_direction.y=-m_direction.y;
     }
   }
+  if (colisionEntity(other)) {
+    m_direction.x=-m_direction.x;
+    m_direction.y=-m_direction.y;
+  }
+  // Uvecavamo trenutnu poziciju objekta, idemo za x i y koliko kaze vektor pravca
+  m_position.x+=m_direction.x;
+  m_position.y+=m_direction.y;
+
   // Azurira se centar sprite-a, samim tim i entity-a
   m_center.x = m_position.x + m_radius/2;
   m_center.y = m_position.y + m_radius/2;
+
   // Postavlja se pozicija teksture kako bi iscrtavanje bilo moguce
   m_image.setPosition(m_position.x,m_position.y);
 }

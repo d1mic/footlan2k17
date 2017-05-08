@@ -37,7 +37,8 @@ void Game::proccessEvents(){
 }
 
 void Game::update(){
-	m_serbian_chetnik->update();
+	m_serbian_chetnik->update(*m_ball);
+	m_ball->update(*m_serbian_chetnik);
 }
 
 void Game::render(){
