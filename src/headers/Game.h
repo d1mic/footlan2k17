@@ -6,12 +6,21 @@
 #include "consts.h"
 #include "ResourceManager.h"
 #include "Entity.h"
+#include "PlayState.h"
+#include "MenuState.h"
+#include "State.h"
 
 class Game {
 public:
 	Game();
 	~Game();
 	void run();
+
+	// ove dve metode, a bice ih vise, vracaju menadzere resursa
+	const TextureManager* textures() const;
+	const FontManager* fonts() const;
+	void changeState(State* state); // Metoda koja dozvoljava promenu iz jednog u drugi State
+	void exit();
 private:
 	void proccessEvents();
 	void update();
@@ -20,11 +29,8 @@ private:
 	void checkForUpdate();
 	sf::RenderWindow m_gameWindow;
 	TextureManager m_textures;
-	// NEK ZA SADA STOJI OVO OVAKO, IZVESCEMO KLASE IZ
-	// OVE OSNOVNE
-	Entity* m_ball;
-	Entity* m_serbian_chetnik;
-	sf::Sprite m_field;
+	FontManager m_fonts;
+	State* m_currState; // Ovo je pokazivac na trenutni State (na pocetku MenuState)
 	sf::Clock m_clock;
 };
 #endif

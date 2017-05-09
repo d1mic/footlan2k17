@@ -1,23 +1,21 @@
 #include "headers/Game.h"
-#include <iostream>
 
 Game::Game()
 	:m_gameWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), TITLE)
 {
+	// Ucitavanje ovih aseta prebaciti mozda u funkciju
 	m_gameWindow.setFramerateLimit(60);
 	m_textures.load("ball", "../assets/images/ball.png");
 	m_textures.load("serbia", "../assets/images/serbia.png");
 	m_textures.load("field", "../assets/images/field.png");
-
-	m_ball = new Entity(0, 0, m_textures.get("ball"));
-	m_serbian_chetnik = new Entity(300, 300, m_textures.get("serbia"));
-	m_field.setTexture(m_textures.get("field"));
-	m_field.setScale(0.677,0.625);
+	m_textures.load("menu2", "../assets/images/menu2.jpg");
+	m_fonts.load("menu", "../assets/fonts/menu_font.ttf");
+	
+	m_currState = new MenuState(this);
 }
 Game::~Game()
 {
-	delete m_ball;
-	delete m_serbian_chetnik;
+	delete m_currState;
 }
 void Game::run(){
 	start();
@@ -31,21 +29,21 @@ void Game::proccessEvents(){
 	sf::Event event;
 	while (m_gameWindow.pollEvent(event)) {
 		if (event.type == sf::Event::Closed || (event.type==sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
-			m_gameWindow.close();
+			exit();
 		}
+		if (event.type == sf::Event::KeyPressed)
+			m_currState->keyboard(event.key.code);
 	}
 }
 
 void Game::update(){
-	m_serbian_chetnik->update(*m_ball);
-	m_ball->update(*m_serbian_chetnik);
+	
+	m_currState->update();
 }
 
 void Game::render(){
 	m_gameWindow.clear(sf::Color::Black);
-	m_gameWindow.draw(m_field);
-	m_ball->render(m_gameWindow);
-	m_serbian_chetnik->render(m_gameWindow);
+	m_currState->render(m_gameWindow);
 	m_gameWindow.display();
 }
 
@@ -60,4 +58,17 @@ void Game::checkForUpdate()
 		update();
 		m_clock.restart();
 	}
+}
+const TextureManager* Game::textures() const {
+	return &m_textures;
+}
+const FontManager* Game::fonts() const {
+	return &m_fonts;
+}
+void Game::changeState(State* state) {
+	delete m_currState;
+	m_currState = state;
+}
+void Game::exit() {
+	m_gameWindow.close();
 }

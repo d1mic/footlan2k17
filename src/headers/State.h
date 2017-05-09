@@ -4,17 +4,20 @@
 #include <SFML/Graphics.hpp>
 #include "ResourceManager.h"
 
+class Game;
+
 class State
 {
 public:
-    State(TextureManager* textures, FontManager* fonts);
     virtual ~State();
 
     virtual void update() = 0;
     virtual void render(sf::RenderWindow& window) = 0;
-private:
-    TextureManager* m_textures;
-    FontManager* m_fonts;
+    virtual void keyboard(sf::Keyboard::Key& key) = 0; // Metoda za input sa tastature
+    // dodati za mouse input, i eventualno jos nesto
+protected:
+    State(Game* game);
+    Game* p_game;
 };
 
 #endif
