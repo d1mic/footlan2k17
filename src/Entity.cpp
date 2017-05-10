@@ -25,6 +25,10 @@ Entity::Entity(const sf::Vector2f& position, const sf::Texture& texture)
 const sf::Vector2f& Entity::position() const {
     return m_position;
 }
+const sf::Vector2f& Entity::direction() const {
+    return m_direction;
+}
+
 const sf::Vector2f& Entity::center() const {
     return m_center;
 }
@@ -39,12 +43,21 @@ void Entity::setPosition(double x, double y) {
     m_position.x = x;
     m_position.y = y;
 }
+void Entity::setDirection(double x , double y) {
+  m_direction.x = x;
+  m_direction.y = y;
+}
+
 void Entity::setPosition(const sf::Vector2f& position) {
     m_position.x = position.x;
     m_position.y = position.y;
 }
+void Entity::setDirection(const sf::Vector2f& direction) {
+    m_direction.x = direction.x;
+    m_direction.y = direction.y;
+}
 
-void Entity::update(const Entity &other) {
+void Entity::update( Entity &other ) {
   move(other);
 }
 
@@ -67,7 +80,7 @@ bool Entity::colisionField()
   return false;
 }
 
-void Entity::move(const Entity &other)
+void Entity::move(Entity &other)
 {
   // Proveravamo da li je bilo kolizije
   if (colisionField()) {
@@ -93,8 +106,25 @@ void Entity::move(const Entity &other)
     }
   }
   if (colisionEntity(other)) {
-    m_direction.x=-m_direction.x;
-    m_direction.y=-m_direction.y;
+    //std::cout << m_direction.x << " " << m_direction.y << " " << other.direction().x << " " << other.direction().y << std::endl;
+
+    float distance = distanceBetweenPoints(other.center().x,other.center().y,m_center.x,m_center.y);
+
+    if (distance < other.radius()/2 + m_radius/2) {
+      std::cout << m_direction.x << " " << m_direction.y << " " << other.direction().x << " " << other.direction().y << std::endl;
+      float movement=(other.radius()/2 + m_radius/2-distance);
+      m_position.x-=movement;
+      m_position.y-=movement;
+      other.setDirection(-other.direction().x,-other.direction().y);
+    }
+
+    float newVelX1 = ( m_direction.x * (m_radius - other.radius()) + (2 * other.radius() *  other.direction().x)) / (m_radius + other.radius());
+    float newVelY1 = ( m_direction.y * (m_radius - other.radius()) + (2 * other.radius() *  other.direction().y)) / (m_radius + other.radius());
+    float newVelX2 = (other.direction().x * (other.radius() - m_radius) + (2 * m_radius * m_direction.x)) / (m_radius + other.radius());
+    float newVelY2 = (other.direction().y * (other.radius() - m_radius) + (2 * m_radius * m_direction.y)) / (m_radius + other.radius());
+    m_direction.x = newVelX1;
+    m_direction.y = newVelY1;
+    other.setDirection(newVelX2 , newVelY2 );
   }
   // Uvecavamo trenutnu poziciju objekta, idemo za x i y koliko kaze vektor pravca
   m_position.x+=m_direction.x;
@@ -106,4 +136,8 @@ void Entity::move(const Entity &other)
 
   // Postavlja se pozicija teksture kako bi iscrtavanje bilo moguce
   m_image.setPosition(m_position.x,m_position.y);
+}
+float Entity::distanceBetweenPoints(float x1, float y1, float x2, float y2)
+{
+  return abs(sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2))));
 }

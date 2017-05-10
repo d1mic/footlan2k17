@@ -4,9 +4,9 @@ PlayState::PlayState(Game* game)
     :State(game)
 {
     m_ball = new Entity(0, 0, game->textures()->get("ball"));
-    m_serbian_chetnik = new Entity(300, 300, 
+    m_serbian_chetnik = new Entity(300, 300,
                                    game->textures()->get("serbia"));
-    
+
     m_field.setTexture(p_game->textures()->get("field"));
 	m_field.setScale(0.677,0.625);
 }
