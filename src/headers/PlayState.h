@@ -4,7 +4,7 @@
 #include "Game.h"
 #include "State.h"
 #include "Entity.h"
-
+#include "Goal.h"
 
 class PlayState : public State {
 public:
@@ -17,7 +17,9 @@ public:
 private:
   Entity* m_ball;
 	Entity* m_serbian_chetnik;
-	sf::Sprite m_field;
+  Goal *m_goal_home;
+  Goal *m_goal_away;
+  sf::Sprite m_field;
 };
 
 #endif

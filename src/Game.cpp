@@ -9,8 +9,10 @@ Game::Game()
 	m_textures.load("serbia", "../assets/images/serbia.png");
 	m_textures.load("field", "../assets/images/field.png");
 	m_textures.load("menu2", "../assets/images/menu2.jpg");
+	m_textures.load("goal", "../assets/images/goal.png");
+	m_textures.load("goal2", "../assets/images/goal2.png");
 	m_fonts.load("menu", "../assets/fonts/menu_font.ttf");
-	
+
 	m_currState = new MenuState(this);
 }
 Game::~Game()
@@ -37,7 +39,7 @@ void Game::proccessEvents(){
 }
 
 void Game::update(){
-	
+
 	m_currState->update();
 }
 
