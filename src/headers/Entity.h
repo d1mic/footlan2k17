@@ -8,7 +8,7 @@
 class Entity
 {
 public:
-    Entity(double x, double y, const sf::Texture& texture);
+    Entity(double x, double y, const sf::Texture& texture,double x_, double y_);
     Entity(const sf::Vector2f& position, const sf::Texture& texture);
 
     // geteri
@@ -23,6 +23,7 @@ public:
     void setPosition(const sf::Vector2f& position);
     void setDirection(double x , double y);
     void setDirection(const sf::Vector2f& direction);
+    void setCenter(double x, double y);
 
     void update(Entity& other);
     void render(sf::RenderWindow& window);

@@ -1,8 +1,9 @@
 #include "headers/Entity.h"
 #include "headers/consts.h"
 #include <iostream>
+#include <math.h>
 
-Entity::Entity(double x, double y, const sf::Texture& texture)
+Entity::Entity(double x, double y, const sf::Texture& texture, double x_, double y_)
     :m_position(x, y), m_image(texture)
 {
     m_image.setPosition(x, y);
@@ -10,8 +11,8 @@ Entity::Entity(double x, double y, const sf::Texture& texture)
     m_center.x = x + m_radius/2;
     m_center.y =  y + m_radius/2;
     // Stavljeno zbog testiranja funkcije move
-    m_direction.x=7;
-    m_direction.y=5;
+    m_direction.x=x_;
+    m_direction.y=y_;
 }
 Entity::Entity(const sf::Vector2f& position, const sf::Texture& texture)
     :m_position(position), m_image(texture)
@@ -25,6 +26,7 @@ Entity::Entity(const sf::Vector2f& position, const sf::Texture& texture)
 const sf::Vector2f& Entity::position() const {
     return m_position;
 }
+
 const sf::Vector2f& Entity::direction() const {
     return m_direction;
 }
@@ -57,7 +59,13 @@ void Entity::setDirection(const sf::Vector2f& direction) {
     m_direction.y = direction.y;
 }
 
-void Entity::update( Entity &other ) {
+void Entity::setCenter(double x, double y)
+{
+  m_center.x=x;
+  m_center.y=y;
+}
+
+void Entity::update(Entity &other) {
   move(other);
 }
 
@@ -104,28 +112,29 @@ void Entity::move(Entity &other)
       m_position.y=WINDOW_HEIGHT - m_radius;
       m_direction.y=-m_direction.y;
     }
+    // m_direction.x*=0.99;
+    // m_direction.y*=0.99;
   }
+
   if (colisionEntity(other)) {
-    //std::cout << m_direction.x << " " << m_direction.y << " " << other.direction().x << " " << other.direction().y << std::endl;
 
-    float distance = distanceBetweenPoints(other.center().x,other.center().y,m_center.x,m_center.y);
+    double distance = distanceBetweenPoints(other.center().x,other.center().y,m_center.x,m_center.y);
 
-    if (distance < other.radius()/2 + m_radius/2) {
-      std::cout << m_direction.x << " " << m_direction.y << " " << other.direction().x << " " << other.direction().y << std::endl;
-      float movement=(other.radius()/2 + m_radius/2-distance);
-      m_position.x-=movement;
-      m_position.y-=movement;
-      other.setDirection(-other.direction().x,-other.direction().y);
-    }
+    double nx = (other.center().x - m_center.x) / distance;
+    double ny = (other.center().y - m_center.y) / distance;
 
-    float newVelX1 = ( m_direction.x * (m_radius - other.radius()) + (2 * other.radius() *  other.direction().x)) / (m_radius + other.radius());
-    float newVelY1 = ( m_direction.y * (m_radius - other.radius()) + (2 * other.radius() *  other.direction().y)) / (m_radius + other.radius());
-    float newVelX2 = (other.direction().x * (other.radius() - m_radius) + (2 * m_radius * m_direction.x)) / (m_radius + other.radius());
-    float newVelY2 = (other.direction().y * (other.radius() - m_radius) + (2 * m_radius * m_direction.y)) / (m_radius + other.radius());
-    m_direction.x = newVelX1;
-    m_direction.y = newVelY1;
-    other.setDirection(newVelX2 , newVelY2 );
+    double p = (m_direction.x * nx + m_direction.y * ny - other.direction().x * nx - other.direction().y * ny);
+
+    m_direction.x = m_direction.x - p * nx;
+    m_direction.y = m_direction.y - p * ny;
+
+    double vx2 = other.direction().x + p * nx;
+    double vy2 = other.direction().y + p * ny;
+    other.setDirection(vx2,vy2);
+    other.setPosition(other.position().x+other.direction().x,other.position().y+other.direction().y);
+    other.setCenter(other.position().x+other.radius()/2, other.position().y+other.radius()/2);
   }
+
   // Uvecavamo trenutnu poziciju objekta, idemo za x i y koliko kaze vektor pravca
   m_position.x+=m_direction.x;
   m_position.y+=m_direction.y;
