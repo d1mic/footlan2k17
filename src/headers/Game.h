@@ -5,9 +5,10 @@
 #include <SFML/Graphics.hpp>
 #include "consts.h"
 #include "ResourceManager.h"
-#include "Entity.h"
 #include "PlayState.h"
 #include "MenuState.h"
+#include "TeamState.h"
+
 #include "State.h"
 
 class Game {

@@ -3,10 +3,10 @@
 MenuState::MenuState(Game* game)
     :State(game)
 {
-    m_background.setTexture(p_game->textures()->get("menu2"));
-    m_options.push_back(sf::Text("Start Game", p_game->fonts()->get("menu"), 40));
-    m_options.push_back(sf::Text("About", p_game->fonts()->get("menu"), 40));
-    m_options.push_back(sf::Text("Exit", p_game->fonts()->get("menu"), 40));
+    m_background.setTexture(p_game->textures()->get("menu"));
+    m_options.push_back(sf::Text("Start Game", p_game->fonts()->get("menu_font"), 40));
+    m_options.push_back(sf::Text("About", p_game->fonts()->get("menu_font"), 40));
+    m_options.push_back(sf::Text("Exit", p_game->fonts()->get("menu_font"), 40));
 
     m_ball.setTexture(p_game->textures()->get("ball"));
 
@@ -50,7 +50,7 @@ void MenuState::keyboard(sf::Keyboard::Key& key) {
         setBallPosition();
     } else if (key == sf::Keyboard::Key::Space) {
         if (m_selected == 0) {
-            p_game->changeState(new PlayState(p_game));
+            p_game->changeState(new TeamState(p_game));
         } else if ((size_t)m_selected == m_options.size()-1) {
             p_game->exit();
         }

@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "ResourceManager.h"
+#include "consts.h"
 
 class Game;
 

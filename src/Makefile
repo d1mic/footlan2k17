@@ -2,7 +2,7 @@ CC=g++
 CFLAGS= -c -Wall -std=c++11
 LDFLAGS=
 LIBFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
-SOURCES = main.cpp Game.cpp Entity.cpp State.cpp PlayState.cpp MenuState.cpp Goal.cpp
+SOURCES = main.cpp Game.cpp Entity.cpp State.cpp PlayState.cpp MenuState.cpp Goal.cpp TeamState.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=main
 BINDIR=/usr/bin

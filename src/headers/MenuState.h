@@ -3,8 +3,7 @@
 
 #include "Game.h"
 #include "State.h"
-#include "PlayState.h"
-#include "consts.h"
+#include "TeamState.h"
 #include <vector>
 
 class MenuState : public State {
@@ -14,7 +13,7 @@ public:
 
     void update();
     void render(sf::RenderWindow& window);
-    virtual void keyboard(sf::Keyboard::Key& key);
+    void keyboard(sf::Keyboard::Key& key);
 private:
     sf::Sprite m_background;
     sf::Sprite m_ball;

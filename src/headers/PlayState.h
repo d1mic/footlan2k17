@@ -13,7 +13,7 @@ public:
 
     void update();
     void render(sf::RenderWindow& window);
-    virtual void keyboard(sf::Keyboard::Key& key);
+    void keyboard(sf::Keyboard::Key& key);
 private:
   Entity* m_ball;
 	Entity* m_serbian_chetnik;
