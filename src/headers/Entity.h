@@ -17,6 +17,7 @@ public:
     const sf::Vector2f& center() const;
     const sf::Sprite& image() const;
     const int radius() const;
+    const double mass() const;
 
     // seteri
     void setPosition(double x, double y);
@@ -28,17 +29,18 @@ public:
     void update(Entity& other);
     void render(sf::RenderWindow& window);
 
-    bool colisionEntity(const Entity& entity);
-    bool colisionField();
+    void checkEntityCollision(Entity& other);
+    // bool colisionField();
+    void checkBoundaryCollision();
 
     void move(Entity& other);
 private:
     sf::Vector2f m_position; // Mozda staviti Vector2f
     sf::Vector2f m_center;
     sf::Sprite m_image;
-    // Precnik je u pitanju, za poluprecnik se deli sa 2
     int m_radius;
     sf::Vector2f m_direction;
+    double m_mass;
     float distanceBetweenPoints(float x1, float y1, float x2, float y2);
 
 };
