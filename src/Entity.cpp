@@ -117,8 +117,8 @@ void Entity::checkBoundaryCollision()
     m_position.y = m_radius;
     m_direction.y *= -1;
   }
-  m_direction.x*=0.999;
-  m_direction.y*=0.999;
+  m_direction.x*=0.990;
+  m_direction.y*=0.990;
 }
 
 void Entity::checkEntityCollision(Entity& other)

@@ -2,10 +2,13 @@
 
 Team::Team(const sf::Texture& texture, Entity* ball)
 {
-  //ovaj polozaj treba jos naravno ispraviti
-  m_players.push_back(new Entity((WINDOW_WIDTH - 100)/2, 250, texture,0,0));
-  m_players.push_back(new Entity((WINDOW_WIDTH - 100)/2 - 150, 120, texture,0,0));
-  m_players.push_back(new Entity((WINDOW_WIDTH - 100)/2 + 150, 120, texture,0,0));
+  //centralni igrac
+  m_players.push_back(new Entity( WINDOW_WIDTH/2  , WINDOW_HEIGHT - 250, texture,0,0));
+  // levi igrac
+  m_players.push_back(new Entity( 120  , WINDOW_HEIGHT - 120, texture,0,0));
+  // desni igrac
+  m_players.push_back(new Entity(WINDOW_WIDTH - 120, WINDOW_HEIGHT -120, texture,0,0));
+  // lopta
   m_ball = ball;
   // kada nije selektovan nijedan igrac, bice vrednost veca od velicine niza
   m_selected = m_players.size() + 1;
@@ -53,10 +56,13 @@ void Team::mouse(sf::Event::MouseButtonEvent& event) {
     if (m_selected > m_players.size()) {
       findSelectedPlayer(event.x, event.y);
     } else {
-      // Ovde ce ici kod kada se otpusti desni klik, za proracun vektora i cuda
-      std::cout << "Selektovan je igrac: " << m_selected << std::endl;
+
+
+      // ja sam mislio da ce bolje raditi za .center al ipak je bolje ovako sa .position
+      m_players[m_selected]->setDirection((m_players[m_selected]->position().x - event.x)/10, ( m_players[m_selected]->position().y-event.y)/10);
+      //std::cout << "Selektovan je igrac: " << m_selected << "na poziciji " << event.x << " " << event.y << std::endl;
       m_selected = m_players.size() + 1;
-    }
+    };
   }
 }
 void Team::findSelectedPlayer(int x, int y) {
@@ -73,4 +79,17 @@ void Team::findSelectedPlayer(int x, int y) {
       }
     }
   }
+}
+void Team::reset(){
+
+    // centralni igrac
+    m_players[0]->setPosition( WINDOW_WIDTH/2  , WINDOW_HEIGHT - 250);
+    m_players[0]->setDirection(0,0);
+    // levi igrac
+    m_players[1]->setPosition( 120  , WINDOW_HEIGHT - 120);
+    m_players[1]->setDirection(0,0);
+    //desni igrac
+    m_players[2]->setPosition( WINDOW_WIDTH - 120  , WINDOW_HEIGHT - 120);
+    m_players[2]->setDirection(0,0);
+
 }

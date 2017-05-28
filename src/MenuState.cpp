@@ -40,10 +40,10 @@ void MenuState::setBallPosition() {
 }
 
 void MenuState::keyboard(sf::Keyboard::Key& key) {
-    if (key == sf::Keyboard::Key::S) {
+    if (key == sf::Keyboard::Key::S || key == sf::Keyboard::Key::Down) {
         m_selected = (m_selected+1) % m_options.size();
         setBallPosition();
-    } else if (key == sf::Keyboard::Key::W) {
+    } else if (key == sf::Keyboard::Key::W  || key == sf::Keyboard::Key::Up) {
         m_selected--;
         if (m_selected < 0)
             m_selected = m_options.size()-1;
@@ -57,5 +57,5 @@ void MenuState::keyboard(sf::Keyboard::Key& key) {
     }
 }
 void MenuState::mouse(sf::Event::MouseButtonEvent& event) {
-    
+
 }

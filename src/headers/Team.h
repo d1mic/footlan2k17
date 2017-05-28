@@ -12,6 +12,7 @@ public:
     void render(sf::RenderWindow& window);
     void update();
     void mouse(sf::Event::MouseButtonEvent& event);
+    void reset();
 
     Entity& player(size_t index) const;
 private:
