@@ -9,7 +9,7 @@
 
 class PlayState : public State {
 public:
-    PlayState(Game* game);
+    PlayState(Game* game, const std::string& team);
     ~PlayState();
 
     void update();

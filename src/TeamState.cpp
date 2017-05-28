@@ -58,7 +58,7 @@ void TeamState::keyboard(sf::Keyboard::Key& key) {
         m_selected = (m_selected == 0 ? m_teams.size()-1 : m_selected-1);
     } else if (key == sf::Keyboard::Key::Space) {
         
-        p_game->changeState(new PlayState(p_game));
+        p_game->changeState(new PlayState(p_game, m_teams[m_selected]));
         return;// mora return da se ne bi izvrsilo ovo setTeams nakon promene
     }
 

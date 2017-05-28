@@ -67,7 +67,7 @@ void Team::findSelectedPlayer(int x, int y) {
     // Resiti se ovih konstanti 100 i ubaciti sta vec treba
     // jer u suprotnom ovako hvata poziciju izvan igraca
     if (x >= p->position().x-p->radius() && x <= p->position().x+p->radius()) {
-      if (y >= p->position().y-1.5*p->radius() && y <= p->position().y+p->radius()/2) {
+      if (y >= p->position().y-p->radius() && y <= p->position().y+p->radius()) {
         m_selected = i;
         return;
       }

@@ -1,12 +1,12 @@
 #include "headers/PlayState.h"
 
-PlayState::PlayState(Game* game)
+PlayState::PlayState(Game* game, const std::string& team)
     :State(game)
 {
   m_ball = new Entity(100, 348, game->textures()->get("ball"),0,0);
   //m_serbian_chetnik = new Entity(400, 300, game->textures()->get("serbia"),-3,4);
 
-  m_team1 = new Team(game->textures()->get("serbia"), m_ball);
+  m_team1 = new Team(game->textures()->get(team), m_ball);
 
   m_goal_home = new Goal((WINDOW_WIDTH-GOAL_WIDTH)/2, 6, game->textures()->get("goal"));
   m_goal_away = new Goal((WINDOW_WIDTH-GOAL_WIDTH)/2, WINDOW_HEIGHT-100, game->textures()->get("goal2"));
