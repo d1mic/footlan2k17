@@ -26,23 +26,24 @@ public:
     void setDirection(const sf::Vector2f& direction);
     void setCenter(double x, double y);
 
-    void update(Entity& other);
+    void update();
     void render(sf::RenderWindow& window);
 
     void checkEntityCollision(Entity& other);
     // bool colisionField();
     void checkBoundaryCollision();
-
-    void move(Entity& other);
+    
 private:
     sf::Vector2f m_position; // Mozda staviti Vector2f
     sf::Vector2f m_center;
     sf::Sprite m_image;
-    int m_radius;
     sf::Vector2f m_direction;
-    double m_mass;
-    float distanceBetweenPoints(float x1, float y1, float x2, float y2);
 
+    int m_radius;
+    double m_mass;
+    
+    float distanceBetweenPoints(float x1, float y1, float x2, float y2);
+    void move();
 };
 
 #endif

@@ -74,8 +74,8 @@ void Entity::setCenter(double x, double y)
   m_center.y=y;
 }
 
-void Entity::update(Entity &other) {
-  move(other);
+void Entity::update() {
+  move();
   checkBoundaryCollision();
   // checkEntityCollision(other);
 }
@@ -85,7 +85,7 @@ void Entity::render(sf::RenderWindow& window) {
   window.draw(m_image);
 }
 
-void Entity::move(Entity &other)
+void Entity::move()
 {
   // Uvecavamo trenutnu poziciju objekta, idemo za x i y koliko kaze vektor pravca
   m_position.x+=m_direction.x;

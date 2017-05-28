@@ -1,45 +1,40 @@
 #include "headers/Team.h"
 
-Team::Team(const sf::Texture& texture)
+Team::Team(const sf::Texture& texture, Entity* ball)
 {
   //ovaj polozaj treba jos naravno ispraviti
-  m_player1 = new Entity((WINDOW_WIDTH - 100)/2, 250, texture,-3,6);
-  m_player2 = new Entity((WINDOW_WIDTH - 100)/2 - 150, 120, texture,-3,6);
-  m_player3 = new Entity((WINDOW_WIDTH - 100)/2 + 150, 120, texture,-3,6);
+  m_players.push_back(new Entity((WINDOW_WIDTH - 100)/2, 250, texture,-3,6));
+  m_players.push_back(new Entity((WINDOW_WIDTH - 100)/2 - 150, 120, texture,-3,6));
+  m_players.push_back(new Entity((WINDOW_WIDTH - 100)/2 + 150, 120, texture,-3,6));
+  m_ball = ball;
 }
 Team::~Team() {
-    delete m_player1;
-    delete m_player2;
-    delete m_player3;
+    for (size_t i = 0; i < m_players.size(); i++) {
+      delete m_players[i];
+    }
 }
-void Team::update(Entity &other){
+void Team::update(){
 
-  // DA LI MORAJU SVAKA DVA? THAT IS THE QUESTION?
-  m_player1->update(other);
-  m_player1->update(*m_player2);
-  m_player1->update(*m_player3);
-
-  m_player2->update(other);
-  m_player2->update(*m_player1);
-  m_player2->update(*m_player3);
-
-  m_player3->update(other);
-  m_player3->update(*m_player1);
-  m_player3->update(*m_player2);
-
+    for (size_t i = 0; i < m_players.size(); i++) {
+        
+      m_players[i]->checkEntityCollision(*m_ball); // kolizija pojedinca sa loptom
+      collisionTeammates(i); // kolizija sa saigracima
+      
+      m_players[i]->update();
+    }
 }
-Entity& Team::player(const int i){
-  switch (i) {
-    case 1: return *m_player1; break;
-    case 2: return *m_player2; break;
-    case 3: return *m_player3; break;
-    default: return *m_player1;
-  }
-
-}
-
 void Team::render(sf::RenderWindow& window) {
-      m_player1->render(window);
-      m_player2->render(window);
-      m_player3->render(window);
+    for (size_t i = 0; i < m_players.size(); i++) {
+      m_players[i]->render(window);
+    }
   }
+Entity& Team::player(size_t index) const {
+    return *m_players[index];
+}
+void Team::collisionTeammates(size_t index) {
+    size_t size = m_players.size();
+
+    for (size_t i = index+1; i < size; i++) {
+      m_players[index]->checkEntityCollision(*m_players[i]);
+    }
+}

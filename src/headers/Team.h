@@ -3,19 +3,22 @@
 
 #include "Entity.h"
 #include "consts.h"
-
+#include <vector>
 
 class Team {
 public:
-    Team(const sf::Texture& texture);
+    Team(const sf::Texture& texture, Entity* ball);
     ~Team();
     void render(sf::RenderWindow& window);
-    void update(Entity &other);
-    Entity& player(const int i);
+    void update();
+
+    Entity& player(size_t index) const;
 private:
-  Entity* m_player1;
-	Entity* m_player2;
-  Entity* m_player3;
+    std::vector<Entity*> m_players;
+    Entity* m_ball;
+    // I pokazivac na protivnicki tim
+
+    void collisionTeammates(size_t indeks);
 };
 
 #endif
