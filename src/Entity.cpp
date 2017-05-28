@@ -21,8 +21,8 @@ Entity::Entity(const sf::Vector2f& position, const sf::Texture& texture)
 {
     m_image.setPosition(position.x, position.y);
     m_radius = m_image.getTexture()->getSize().x;
-    m_center.x = position.x + m_radius/2;
-    m_center.y = position.y + m_radius/2;
+    m_center.x = position.x + m_radius;
+    m_center.y = position.y + m_radius;
 }
 
 const sf::Vector2f& Entity::position() const {
@@ -51,8 +51,8 @@ const double Entity::mass() const
 }
 
 void Entity::setPosition(double x, double y) {
-    m_position.x = x;
-    m_position.y = y;
+  m_position.x = x;
+  m_position.y = y;
 }
 void Entity::setDirection(double x , double y) {
   m_direction.x = x;
@@ -60,12 +60,12 @@ void Entity::setDirection(double x , double y) {
 }
 
 void Entity::setPosition(const sf::Vector2f& position) {
-    m_position.x = position.x;
-    m_position.y = position.y;
+  m_position.x = position.x;
+  m_position.y = position.y;
 }
 void Entity::setDirection(const sf::Vector2f& direction) {
-    m_direction.x = direction.x;
-    m_direction.y = direction.y;
+  m_direction.x = direction.x;
+  m_direction.y = direction.y;
 }
 
 void Entity::setCenter(double x, double y)
@@ -81,7 +81,7 @@ void Entity::update() {
 }
 
 void Entity::render(sf::RenderWindow& window) {
-  // m_image.setPosition(m_position.x-m_radius,m_position.y-m_radius);
+  m_image.setPosition(m_position.x-m_radius,m_position.y-m_radius);
   window.draw(m_image);
 }
 
@@ -92,8 +92,8 @@ void Entity::move()
   m_position.y+=m_direction.y;
 
   // Azurira se centar sprite-a, samim tim i entity-a
-  m_center.x = m_position.x + m_radius/2;
-  m_center.y = m_position.y + m_radius/2;
+  m_center.x = m_position.x + m_radius;
+  m_center.y = m_position.y + m_radius;
 
   // Postavlja se pozicija teksture kako bi iscrtavanje bilo moguce
   m_image.setPosition(m_position.x-m_radius,m_position.y-m_radius);

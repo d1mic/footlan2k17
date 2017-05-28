@@ -3,7 +3,7 @@
 PlayState::PlayState(Game* game)
     :State(game)
 {
-  m_ball = new Entity(100, 348, game->textures()->get("ball"),7,3);
+  m_ball = new Entity(100, 348, game->textures()->get("ball"),0,0);
   //m_serbian_chetnik = new Entity(400, 300, game->textures()->get("serbia"),-3,4);
 
   m_team1 = new Team(game->textures()->get("serbia"), m_ball);
@@ -22,9 +22,9 @@ PlayState::~PlayState() {
 }
 void PlayState::update() {
   //m_serbian_chetnik->update();
+  m_team1->update();
 	m_ball->update();
   //m_serbian_chetnik->checkEntityCollision(*m_ball);
-  m_team1->update();
 }
 void PlayState::render(sf::RenderWindow& window) {
   window.draw(m_field);
