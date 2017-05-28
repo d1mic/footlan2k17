@@ -15,6 +15,7 @@ public:
     void update();
     void render(sf::RenderWindow& window);
     void keyboard(sf::Keyboard::Key& key);
+    void mouse(sf::Event::MouseButtonEvent& event);
 private:
   Entity* m_ball;
 	Entity* m_serbian_chetnik;

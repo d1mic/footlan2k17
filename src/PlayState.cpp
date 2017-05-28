@@ -14,11 +14,11 @@ PlayState::PlayState(Game* game)
 	m_field.setScale(0.677,0.625);
 }
 PlayState::~PlayState() {
-    delete m_ball;
-    //delete m_serbian_chetnik;
-    delete m_goal_home;
-    delete m_goal_away;
-    delete m_team1;
+  delete m_ball;
+  //delete m_serbian_chetnik;
+  delete m_goal_home;
+  delete m_goal_away;
+  delete m_team1;
 }
 void PlayState::update() {
   //m_serbian_chetnik->update();
@@ -36,4 +36,7 @@ void PlayState::render(sf::RenderWindow& window) {
 }
 void PlayState::keyboard(sf::Keyboard::Key& key) {
 
+}
+void PlayState::mouse(sf::Event::MouseButtonEvent& event) {
+  m_team1->mouse(event);
 }

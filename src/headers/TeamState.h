@@ -16,7 +16,8 @@ public:
     void update();
     void render(sf::RenderWindow& window);
     void keyboard(sf::Keyboard::Key& key);
-
+    void mouse(sf::Event::MouseButtonEvent& event);
+    
 private:
     std::vector<std::string> m_teams;
     sf::Sprite m_current, m_left, m_right;

@@ -38,6 +38,9 @@ void Game::proccessEvents(){
 		}
 		if (event.type == sf::Event::KeyPressed)
 			m_currState->keyboard(event.key.code);
+		if (event.type == sf::Event::MouseButtonPressed || 
+			event.type == sf::Event::MouseButtonReleased)
+			m_currState->mouse(event.mouseButton);
 	}
 }
 

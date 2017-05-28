@@ -77,3 +77,6 @@ void TeamState::setTeams() {
     m_left.setTexture(p_game->textures()->get(m_teams[leftVal]));
     m_right.setTexture(p_game->textures()->get(m_teams[rightVal]));
 }
+void TeamState::mouse(sf::Event::MouseButtonEvent& event) {
+
+}

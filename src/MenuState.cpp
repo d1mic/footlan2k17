@@ -56,3 +56,6 @@ void MenuState::keyboard(sf::Keyboard::Key& key) {
         }
     }
 }
+void MenuState::mouse(sf::Event::MouseButtonEvent& event) {
+    
+}
