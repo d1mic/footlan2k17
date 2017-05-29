@@ -6,7 +6,11 @@ TeamState::TeamState(Game* game)
     m_teams = {
         "serbia",
         "spain",
-        "russia"
+        "russia",
+        "poland",
+        "turkey",
+        "france",
+        "germany"
     };
     m_selected = m_teams.size() / 2;
     m_background.setTexture(p_game->textures()->get("menu"));
@@ -30,7 +34,7 @@ TeamState::TeamState(Game* game)
 
 
     m_teamName = sf::Text(m_teams[m_selected], p_game->fonts()->get("menu_font2"), 25);
-    m_teamName.setPosition((m_currPos.x + 75) - ((m_teams[m_selected].size()/2.0)*15), m_currPos.y + 150);
+    m_teamName.setPosition((m_currPos.x + 75) - ((m_teams[m_selected].size()/2.0)*18), m_currPos.y + 150);
 
     m_message = sf::Text("select your team", p_game->fonts()->get("menu_font2"), 30);
     m_message.setPosition(m_currPos.x - 80, m_currPos.y - 50);
@@ -69,7 +73,7 @@ void TeamState::setTeams() {
     m_current.setTexture(p_game->textures()->get(m_teams[m_selected]));
     m_teamName.setString(m_teams[m_selected]);
 
-    m_teamName.setPosition((m_currPos.x + 75) - ((m_teamName.getString().getSize()/2.0)*15), m_currPos.y + 150);
+    m_teamName.setPosition((m_currPos.x + 75) - ((m_teamName.getString().getSize()/2.0)*18), m_currPos.y + 150);
 
     int leftVal = m_selected == 0 ? m_teams.size() - 1 : m_selected - 1;
     int rightVal = m_selected == (int)m_teams.size()-1 ? 0 : m_selected + 1;

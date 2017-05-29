@@ -9,6 +9,10 @@ Game::Game()
 	m_textures.load("serbia", "../assets/images/serbia.png");
 	m_textures.load("spain", "../assets/images/spain.png");
 	m_textures.load("russia", "../assets/images/russia.png");
+	m_textures.load("germany", "../assets/images/germany.png");
+	m_textures.load("france", "../assets/images/france.png");
+	m_textures.load("poland", "../assets/images/poland.png");
+	m_textures.load("turkey", "../assets/images/turkey.png");
 	m_textures.load("field", "../assets/images/field.png");
 	m_textures.load("menu", "../assets/images/menu.jpg");
 	m_textures.load("goal", "../assets/images/goal.png");
