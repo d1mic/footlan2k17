@@ -59,7 +59,16 @@ void Team::mouse(sf::Event::MouseButtonEvent& event) {
 
 
       // ja sam mislio da ce bolje raditi za .center al ipak je bolje ovako sa .position
-      m_players[m_selected]->setDirection((m_players[m_selected]->position().x - event.x)/10, ( m_players[m_selected]->position().y-event.y)/10);
+      double hit_x = (m_players[m_selected]->position().x - event.x)/10;
+      double hit_y = (m_players[m_selected]->position().y - event.y)/10;
+
+      // hit_max regulise koliki je maksimalno jak udarac
+      const double hit_max = 20;
+      hit_x = ((std::abs(hit_x) > hit_max) ? (hit_x > 0 ? hit_max : - hit_max) : hit_x);
+      hit_y = ((std::abs(hit_y) > hit_max) ? (hit_y > 0 ? hit_max : - hit_max) : hit_y);
+      std::cout << hit_x << " " << hit_y << std::endl;
+
+      m_players[m_selected]->setDirection(hit_x,hit_y);
       //std::cout << "Selektovan je igrac: " << m_selected << "na poziciji " << event.x << " " << event.y << std::endl;
       m_selected = m_players.size() + 1;
     };

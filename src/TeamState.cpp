@@ -52,9 +52,9 @@ void TeamState::render(sf::RenderWindow& window) {
 }
 void TeamState::keyboard(sf::Keyboard::Key& key) {
 
-    if (key == sf::Keyboard::Key::D  || key == sf::Keyboard::Key::Left) {
+    if (key == sf::Keyboard::Key::D  || key == sf::Keyboard::Key::Right) {
         m_selected = (m_selected + 1) % m_teams.size();
-    } else if (key == sf::Keyboard::Key::A  || key == sf::Keyboard::Key::Right) {
+    } else if (key == sf::Keyboard::Key::A  || key == sf::Keyboard::Key::Left) {
         m_selected = (m_selected == 0 ? m_teams.size()-1 : m_selected-1);
     } else if (key == sf::Keyboard::Key::Space) {
 
