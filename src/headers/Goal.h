@@ -2,12 +2,12 @@
 #define GOAL_H
 
 #include <SFML/Graphics.hpp>
-
+#include "consts.h"
 class Goal
 {
 public:
   Goal(double x, double y, const sf::Texture &texture);
-
+  
   void render(sf::RenderWindow& window);
 
 private:
