@@ -8,8 +8,8 @@ PlayState::PlayState(Game* game, const std::string& team)
 
   m_team1 = new Team(game->textures()->get(team), m_ball);
 
-  m_goal_home = new Goal((WINDOW_WIDTH-GOAL_WIDTH)/2, 6, game->textures()->get("goal"));
-  m_goal_away = new Goal((WINDOW_WIDTH-GOAL_WIDTH)/2, WINDOW_HEIGHT-100, game->textures()->get("goal2"));
+  m_goal_home = new Goal((WINDOW_WIDTH- GOAL_WIDTH)/2, 0, game->textures()->get("goal2"));
+  m_goal_away = new Goal((WINDOW_WIDTH - GOAL_WIDTH)/2, WINDOW_HEIGHT - GOAL_HEIGHT , game->textures()->get("goal"));
   m_field.setTexture(p_game->textures()->get("field"));
 	m_field.setScale(0.677,0.625);
 }

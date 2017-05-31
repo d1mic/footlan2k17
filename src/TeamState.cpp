@@ -17,7 +17,7 @@ TeamState::TeamState(Game* game)
     m_loadingImg.setTexture(p_game->textures()->get("loading"));
     m_loadingImg.setOrigin(m_loadingImg.getGlobalBounds().width/2, m_loadingImg.getGlobalBounds().height/2);
     m_loadingImg.setPosition(WINDOW_WIDTH/2, WINDOW_HEIGHT-300);
-    
+
 
     m_loading = false;
 
@@ -81,9 +81,9 @@ void TeamState::keyboard(sf::Keyboard::Key& key) {
         * Ako protivnickog igraca jos nema, ili sta vec onda ide ovaj kod:
         */
         //m_loading = true;
-        // return
-        
-        // u suprotnom prelazi u PlayState, izmenicemo argumente da se posalje i 
+        //return;
+
+        // u suprotnom prelazi u PlayState, izmenicemo argumente da se posalje i
         // naziv protivnicke ekipe
         p_game->changeState(new PlayState(p_game, m_teams[m_selected]));
         return;// mora return da se ne bi izvrsilo ovo setTeams nakon promene

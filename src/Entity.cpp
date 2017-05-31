@@ -120,7 +120,11 @@ void Entity::checkBoundaryCollision()
   m_direction.x*=0.990;
   m_direction.y*=0.990;
 }
+void Entity::checkGoalCollision()
+{
+  //Ovde ide kolizija...
 
+}
 void Entity::checkEntityCollision(Entity& other)
 {
   sf::Vector2f distanceVect(other.position().x-m_position.x, other.position().y-m_position.y);

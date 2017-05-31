@@ -32,7 +32,8 @@ public:
     void checkEntityCollision(Entity& other);
     // bool colisionField();
     void checkBoundaryCollision();
-    
+    void checkGoalCollision();
+
 private:
     sf::Vector2f m_position; // Mozda staviti Vector2f
     sf::Vector2f m_center;
@@ -41,7 +42,7 @@ private:
 
     int m_radius;
     double m_mass;
-    
+
     float distanceBetweenPoints(float x1, float y1, float x2, float y2);
     void move();
 };

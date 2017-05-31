@@ -23,6 +23,7 @@ void Team::update(){
     for (size_t i = 0; i < m_players.size(); i++) {
 
       m_players[i]->checkEntityCollision(*m_ball); // kolizija pojedinca sa loptom
+      m_players[i]->checkGoalCollision();
       collisionTeammates(i); // kolizija sa saigracima
 
       m_players[i]->update();
@@ -66,7 +67,7 @@ void Team::mouse(sf::Event::MouseButtonEvent& event) {
       const double hit_max = 20;
       hit_x = ((std::abs(hit_x) > hit_max) ? (hit_x > 0 ? hit_max : - hit_max) : hit_x);
       hit_y = ((std::abs(hit_y) > hit_max) ? (hit_y > 0 ? hit_max : - hit_max) : hit_y);
-      std::cout << hit_x << " " << hit_y << std::endl;
+      //std::cout << hit_x << " " << hit_y << std::endl;
 
       m_players[m_selected]->setDirection(hit_x,hit_y);
       //std::cout << "Selektovan je igrac: " << m_selected << "na poziciji " << event.x << " " << event.y << std::endl;
@@ -77,7 +78,7 @@ void Team::mouse(sf::Event::MouseButtonEvent& event) {
 void Team::findSelectedPlayer(int x, int y) {
   for (size_t i = 0; i < m_players.size(); i++) {
     Entity* p = m_players[i];
-    
+
     if (x >= p->position().x-p->radius() && x <= p->position().x+p->radius()) {
       if (y >= p->position().y-p->radius() && y <= p->position().y+p->radius()) {
         m_selected = i;
