@@ -19,6 +19,7 @@ Game::Game()
 	m_textures.load("goal2", "../assets/images/goal2.png");
 	m_fonts.load("menu_font", "../assets/fonts/menu_font.ttf");
 	m_fonts.load("menu_font2", "../assets/fonts/menu_font_2.otf");
+	m_fonts.load("about_font", "../assets/fonts/about_font.ttf");
 
 	m_currState = new MenuState(this);
 }

@@ -77,10 +77,7 @@ void Team::mouse(sf::Event::MouseButtonEvent& event) {
 void Team::findSelectedPlayer(int x, int y) {
   for (size_t i = 0; i < m_players.size(); i++) {
     Entity* p = m_players[i];
-
-    // srediti ovo za proveru da li je u igracu
-    // Resiti se ovih konstanti 100 i ubaciti sta vec treba
-    // jer u suprotnom ovako hvata poziciju izvan igraca
+    
     if (x >= p->position().x-p->radius() && x <= p->position().x+p->radius()) {
       if (y >= p->position().y-p->radius() && y <= p->position().y+p->radius()) {
         m_selected = i;
