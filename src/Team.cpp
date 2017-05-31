@@ -69,11 +69,7 @@ void Team::mouse(sf::Event::MouseButtonEvent& event) {
       const double hit_max = 20;
       hit_x = ((std::abs(hit_x) > hit_max) ? (hit_x > 0 ? hit_max : - hit_max) : hit_x);
       hit_y = ((std::abs(hit_y) > hit_max) ? (hit_y > 0 ? hit_max : - hit_max) : hit_y);
-<<<<<<< HEAD
-      // std::cout << hit_x << " " << hit_y << std::endl;
-=======
       //std::cout << hit_x << " " << hit_y << std::endl;
->>>>>>> dad65e91562dd29437720750d599a322bc6f3d9b
 
       m_client.send(m_port_send,m_selected,hit_x,hit_y);
       m_players[m_selected]->setDirection(hit_x,hit_y);
@@ -88,12 +84,9 @@ void Team::findSelectedPlayer(int x, int y) {
   for (size_t i = 0; i < m_players.size(); i++) {
     Entity* p = m_players[i];
 
-<<<<<<< HEAD
     // srediti ovo za proveru da li je u igracu
     // Resiti se ovih konstanti 100 i ubaciti sta vec treba
     // jer u suprotnom ovako hvata poziciju izvan igraca
-=======
->>>>>>> dad65e91562dd29437720750d599a322bc6f3d9b
     if (x >= p->position().x-p->radius() && x <= p->position().x+p->radius()) {
       if (y >= p->position().y-p->radius() && y <= p->position().y+p->radius()) {
         m_selected = i;

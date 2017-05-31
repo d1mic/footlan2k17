@@ -76,7 +76,6 @@ void TeamState::keyboard(sf::Keyboard::Key& key) {
     } else if (key == sf::Keyboard::Key::A  || key == sf::Keyboard::Key::Left) {
         m_selected = (m_selected == 0 ? m_teams.size()-1 : m_selected-1);
     } else if (key == sf::Keyboard::Key::Space) {
-<<<<<<< HEAD
         // Uvodimo socket koji ce naci prazan port, i cuvamo port
         sf::UdpSocket socket;
         sf::SocketSelector selector;
@@ -105,15 +104,12 @@ void TeamState::keyboard(sf::Keyboard::Key& key) {
         socket.unbind();
 
         // std::cout << port_receive << " " << port_send << std::endl;
-=======
         /*
         * Probati da se konektuje, tj. poveze sa mrezom.
         * Ako protivnickog igraca jos nema, ili sta vec onda ide ovaj kod:
         */
         //m_loading = true;
         //return;
-
->>>>>>> dad65e91562dd29437720750d599a322bc6f3d9b
         // u suprotnom prelazi u PlayState, izmenicemo argumente da se posalje i
         // naziv protivnicke ekipe
         p_game->changeState(new PlayState(p_game, m_teams[selected], port_receive, port_send));
