@@ -19,6 +19,7 @@ public:
 protected:
     State(Game* game);
     Game* p_game;
+    sf::Text m_backText;
 };
 
 #endif

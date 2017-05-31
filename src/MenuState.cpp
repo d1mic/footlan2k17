@@ -8,11 +8,11 @@ MenuState::MenuState(Game* game)
     m_options.push_back(sf::Text("About", p_game->fonts()->get("menu_font"), 40));
     m_options.push_back(sf::Text("Exit", p_game->fonts()->get("menu_font"), 40));
 
-    m_aboutText.push_back(sf::Text("This game is made in C++ from scratch, using SFML \n\nlibrary for audio/video/network.\n\n\n\nDEVELOPERS:\n\n\n\n\
-- dimaria95\n\n- filozof50\n\n- ivke11080", p_game->fonts()->get("about_font"), 20));
-    m_aboutText[0].setPosition(50, WINDOW_HEIGHT - 350);
-    m_aboutText.push_back(sf::Text("Press backspace to return", p_game->fonts()->get("about_font"), 16));
-    m_aboutText[1].setPosition(50, WINDOW_HEIGHT - 50);
+    m_aboutText = sf::Text("This game is made in C++ from scratch, using SFML \n\nlibrary for audio/video/network.\n\n\n\nDEVELOPERS:\n\n\n\n\
+- dimaria95\n\n- filozof50\n\n- ivke11080", p_game->fonts()->get("about_font"), 20);
+    m_aboutText.setPosition(50, WINDOW_HEIGHT - 350);
+
+    m_backText.setPosition(5, 10);
 
     m_ball.setTexture(p_game->textures()->get("ball"));
     
@@ -40,9 +40,8 @@ void MenuState::render(sf::RenderWindow& window) {
         }
         window.draw(m_ball);
     } else {
-        for (auto it = m_aboutText.cbegin(); it != m_aboutText.cend(); it++) {
-            window.draw(*it);
-        }
+        window.draw(m_aboutText);
+        window.draw(m_backText);
     }
 }
 void MenuState::setBallPosition() {
