@@ -9,7 +9,7 @@
 
 class PlayState : public State {
 public:
-    PlayState(Game* game, const std::string& team);
+    PlayState(Game* game, const std::string& team,unsigned short receive_port, unsigned short send_port);
     ~PlayState();
 
     void update();
@@ -24,6 +24,8 @@ private:
   Goal *m_goal_away;
   Team *m_team1;
   sf::Sprite m_field;
+  unsigned short m_receive_port;
+  unsigned short m_send_port;
 };
 
 #endif

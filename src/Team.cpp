@@ -1,6 +1,8 @@
 #include "headers/Team.h"
 
-Team::Team(const sf::Texture& texture, Entity* ball)
+Team::Team(const sf::Texture& texture, Entity* ball, unsigned int port_listen, unsigned int port_send)
+  : m_client(port_listen)
+  , m_port_send(port_send)
 {
   //centralni igrac
   m_players.push_back(new Entity( WINDOW_WIDTH/2  , WINDOW_HEIGHT - 250, texture,0,0));
@@ -20,6 +22,7 @@ Team::~Team() {
 }
 void Team::update(){
 
+    receiveMessage();
     for (size_t i = 0; i < m_players.size(); i++) {
 
       m_players[i]->checkEntityCollision(*m_ball); // kolizija pojedinca sa loptom
@@ -28,6 +31,7 @@ void Team::update(){
       m_players[i]->update();
     }
 }
+
 void Team::render(sf::RenderWindow& window) {
     for (size_t i = 0; i < m_players.size(); i++) {
       m_players[i]->render(window);
@@ -56,8 +60,6 @@ void Team::mouse(sf::Event::MouseButtonEvent& event) {
     if (m_selected > m_players.size()) {
       findSelectedPlayer(event.x, event.y);
     } else {
-
-
       // ja sam mislio da ce bolje raditi za .center al ipak je bolje ovako sa .position
       double hit_x = (m_players[m_selected]->position().x - event.x)/10;
       double hit_y = (m_players[m_selected]->position().y - event.y)/10;
@@ -66,9 +68,12 @@ void Team::mouse(sf::Event::MouseButtonEvent& event) {
       const double hit_max = 20;
       hit_x = ((std::abs(hit_x) > hit_max) ? (hit_x > 0 ? hit_max : - hit_max) : hit_x);
       hit_y = ((std::abs(hit_y) > hit_max) ? (hit_y > 0 ? hit_max : - hit_max) : hit_y);
-      std::cout << hit_x << " " << hit_y << std::endl;
+      // std::cout << hit_x << " " << hit_y << std::endl;
 
+      m_client.send(m_port_send,m_selected,hit_x,hit_y);
       m_players[m_selected]->setDirection(hit_x,hit_y);
+
+      std::cout << m_selected << " " << hit_x << " " << hit_y << std::endl;
       //std::cout << "Selektovan je igrac: " << m_selected << "na poziciji " << event.x << " " << event.y << std::endl;
       m_selected = m_players.size() + 1;
     };
@@ -77,7 +82,10 @@ void Team::mouse(sf::Event::MouseButtonEvent& event) {
 void Team::findSelectedPlayer(int x, int y) {
   for (size_t i = 0; i < m_players.size(); i++) {
     Entity* p = m_players[i];
-    
+
+    // srediti ovo za proveru da li je u igracu
+    // Resiti se ovih konstanti 100 i ubaciti sta vec treba
+    // jer u suprotnom ovako hvata poziciju izvan igraca
     if (x >= p->position().x-p->radius() && x <= p->position().x+p->radius()) {
       if (y >= p->position().y-p->radius() && y <= p->position().y+p->radius()) {
         m_selected = i;
@@ -98,4 +106,9 @@ void Team::reset(){
     m_players[2]->setPosition( WINDOW_WIDTH - 120  , WINDOW_HEIGHT - 120);
     m_players[2]->setDirection(0,0);
 
+}
+
+void Team::receiveMessage()
+{
+  m_client.receive(m_players);
 }

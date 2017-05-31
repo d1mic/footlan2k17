@@ -1,17 +1,19 @@
 #include "headers/PlayState.h"
 
-PlayState::PlayState(Game* game, const std::string& team)
+PlayState::PlayState(Game* game, const std::string& team,unsigned short receive_port, unsigned short send_port)
     :State(game)
 {
   m_ball = new Entity(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, game->textures()->get("ball"),0,0);
   //m_serbian_chetnik = new Entity(400, 300, game->textures()->get("serbia"),-3,4);
 
-  m_team1 = new Team(game->textures()->get(team), m_ball);
+  m_team1 = new Team(game->textures()->get(team), m_ball, receive_port, send_port);
 
   m_goal_home = new Goal((WINDOW_WIDTH-GOAL_WIDTH)/2, 6, game->textures()->get("goal"));
   m_goal_away = new Goal((WINDOW_WIDTH-GOAL_WIDTH)/2, WINDOW_HEIGHT-100, game->textures()->get("goal2"));
   m_field.setTexture(p_game->textures()->get("field"));
 	m_field.setScale(0.677,0.625);
+  // m_receive_port = receive_port;
+  // m_send_port = send_port;
 }
 PlayState::~PlayState() {
   delete m_ball;

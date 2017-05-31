@@ -17,7 +17,7 @@ TeamState::TeamState(Game* game)
     m_loadingImg.setTexture(p_game->textures()->get("loading"));
     m_loadingImg.setOrigin(m_loadingImg.getGlobalBounds().width/2, m_loadingImg.getGlobalBounds().height/2);
     m_loadingImg.setPosition(WINDOW_WIDTH/2, WINDOW_HEIGHT-300);
-    
+
 
     m_loading = false;
 
@@ -76,16 +76,37 @@ void TeamState::keyboard(sf::Keyboard::Key& key) {
     } else if (key == sf::Keyboard::Key::A  || key == sf::Keyboard::Key::Left) {
         m_selected = (m_selected == 0 ? m_teams.size()-1 : m_selected-1);
     } else if (key == sf::Keyboard::Key::Space) {
-        /*
-        * Probati da se konektuje, tj. poveze sa mrezom.
-        * Ako protivnickog igraca jos nema, ili sta vec onda ide ovaj kod:
-        */
-        //m_loading = true;
-        // return
-        
-        // u suprotnom prelazi u PlayState, izmenicemo argumente da se posalje i 
+        // Uvodimo socket koji ce naci prazan port, i cuvamo port
+        sf::UdpSocket socket;
+        sf::SocketSelector selector;
+        socket.bind(sf::Socket::AnyPort);
+        selector.add(socket);
+        unsigned short port_receive = socket.getLocalPort();
+
+        sf::IpAddress ip = sf::IpAddress::getLocalAddress();
+        sf::Packet packet;
+
+        packet << m_selected;
+        std::cout << m_selected << std::endl;
+
+        socket.send(packet,ip,20000);
+
+        unsigned short port_send=-1,port;
+        int selected;
+        while (1) {
+          if (selector.wait(sf::milliseconds(1))) {
+            if (socket.receive(packet,ip,port) == sf::UdpSocket::Done)
+              if (packet >> port_send >> selected)
+                 break;
+          }
+        }
+
+        socket.unbind();
+
+        // std::cout << port_receive << " " << port_send << std::endl;
+        // u suprotnom prelazi u PlayState, izmenicemo argumente da se posalje i
         // naziv protivnicke ekipe
-        p_game->changeState(new PlayState(p_game, m_teams[m_selected]));
+        p_game->changeState(new PlayState(p_game, m_teams[selected], port_receive, port_send));
         return;// mora return da se ne bi izvrsilo ovo setTeams nakon promene
     } else if (key == sf::Keyboard::Key::BackSpace) {
         if (m_loading) {
