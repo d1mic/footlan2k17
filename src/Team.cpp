@@ -1,6 +1,6 @@
 #include "headers/Team.h"
 
-Team::Team(const sf::Texture& texture, Entity* ball, unsigned int port_listen, unsigned int port_send)
+Team::Team(const sf::Texture& texture, Entity* ball,Goal *goal,Goal *goal2, unsigned int port_listen, unsigned int port_send)
   : m_client(port_listen)
   , m_port_send(port_send)
 {
@@ -12,7 +12,11 @@ Team::Team(const sf::Texture& texture, Entity* ball, unsigned int port_listen, u
   m_players.push_back(new Entity(WINDOW_WIDTH - 120, WINDOW_HEIGHT -120, texture,0,0));
   // lopta
   m_ball = ball;
+  //goal
+  m_goal1 = goal;
+  m_goal2 = goal2;
   // kada nije selektovan nijedan igrac, bice vrednost veca od velicine niza
+
   m_selected = m_players.size() + 1;
 }
 Team::~Team() {
@@ -26,7 +30,7 @@ void Team::update(){
     for (size_t i = 0; i < m_players.size(); i++) {
 
       m_players[i]->checkEntityCollision(*m_ball); // kolizija pojedinca sa loptom
-      m_players[i]->checkGoalCollision();
+      m_players[i]->checkGoalCollision(*m_goal1, *m_goal2);
       collisionTeammates(i); // kolizija sa saigracima
 
       m_players[i]->update();
@@ -48,6 +52,7 @@ void Team::collisionTeammates(size_t index) {
       m_players[index]->checkEntityCollision(*m_players[i]);
     }
 }
+
 void Team::mouse(sf::Event::MouseButtonEvent& event) {
   if (event.button == sf::Mouse::Button::Left) {
     /*

@@ -120,9 +120,38 @@ void Entity::checkBoundaryCollision()
   m_direction.x*=0.990;
   m_direction.y*=0.990;
 }
-void Entity::checkGoalCollision()
+void Entity::checkGoalCollision(Goal &goal , Goal &goal2)
 {
-  //Ovde ide kolizija...
+  // gornji gol leva stativa
+  if (m_image.getGlobalBounds().left < goal.position().x + 5 && m_image.getGlobalBounds().left + 2*m_radius > goal.position().x &&
+      m_image.getGlobalBounds().top < goal.position().y + GOAL_HEIGHT && 2*m_radius + m_image.getGlobalBounds().top > goal.position().y)
+  {
+    m_direction.x *= -1;
+    m_direction.y *= -1;
+  }
+  // gornji  gol desna stativa
+  if (m_image.getGlobalBounds().left < goal.position().x + GOAL_WIDTH && m_image.getGlobalBounds().left + 2*m_radius > goal.position().x + GOAL_WIDTH - 5 &&
+      m_image.getGlobalBounds().top < goal.position().y + GOAL_HEIGHT && 2*m_radius + m_image.getGlobalBounds().top > goal.position().y)
+  {
+    m_direction.x *= -1;
+    m_direction.y *= -1;
+  }
+  //donji gol leva stativa
+  if (m_image.getGlobalBounds().left < goal2.position().x + 5 && m_image.getGlobalBounds().left + 2*m_radius > goal2.position().x &&
+      m_image.getGlobalBounds().top < goal2.position().y + GOAL_HEIGHT && 2*m_radius + m_image.getGlobalBounds().top > goal2.position().y)
+  {
+    m_direction.x *= -1;
+    m_direction.y *= -1;
+  }
+  //donji gol desna stativa
+  if (m_image.getGlobalBounds().left < goal2.position().x + GOAL_WIDTH && m_image.getGlobalBounds().left + 2*m_radius > goal2.position().x + GOAL_WIDTH - 5 &&
+      m_image.getGlobalBounds().top < goal2.position().y + GOAL_HEIGHT && 2*m_radius + m_image.getGlobalBounds().top > goal2.position().y)
+  {
+    m_direction.x *= -1;
+    m_direction.y *= -1;
+  }
+
+
 
 }
 void Entity::checkEntityCollision(Entity& other)

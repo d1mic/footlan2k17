@@ -2,6 +2,8 @@
 #define ENTITY_H_
 
 #include <SFML/Graphics.hpp>
+#include "Goal.h"
+
 #include <iostream>
 
 
@@ -32,7 +34,7 @@ public:
     void checkEntityCollision(Entity& other);
     // bool colisionField();
     void checkBoundaryCollision();
-    void checkGoalCollision();
+    void checkGoalCollision(Goal &goal, Goal &goal2);
 
 private:
     sf::Vector2f m_position; // Mozda staviti Vector2f

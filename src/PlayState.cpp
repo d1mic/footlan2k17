@@ -6,10 +6,11 @@ PlayState::PlayState(Game* game, const std::string& team,unsigned short receive_
   m_ball = new Entity(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, game->textures()->get("ball"),0,0);
   //m_serbian_chetnik = new Entity(400, 300, game->textures()->get("serbia"),-3,4);
 
-  m_team1 = new Team(game->textures()->get(team), m_ball, receive_port, send_port);
-
   m_goal_home = new Goal((WINDOW_WIDTH- GOAL_WIDTH)/2, 0, game->textures()->get("goal2"));
   m_goal_away = new Goal((WINDOW_WIDTH - GOAL_WIDTH)/2, WINDOW_HEIGHT - GOAL_HEIGHT , game->textures()->get("goal"));
+
+  m_team1 = new Team(game->textures()->get(team), m_ball,m_goal_home,m_goal_away, receive_port, send_port);
+
   m_field.setTexture(p_game->textures()->get("field"));
 	m_field.setScale(0.677,0.625);
   // m_receive_port = receive_port;
@@ -32,9 +33,9 @@ void PlayState::render(sf::RenderWindow& window) {
   window.draw(m_field);
 	m_ball->render(window);
 	//m_serbian_chetnik->render(window);
+  m_team1->render(window);
   m_goal_home->render(window);
   m_goal_away->render(window);
-  m_team1->render(window);
 }
 void PlayState::keyboard(sf::Keyboard::Key& key) {
   /* Stavljeno za proveru reset funkcija

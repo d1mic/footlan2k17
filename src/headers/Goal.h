@@ -7,7 +7,7 @@ class Goal
 {
 public:
   Goal(double x, double y, const sf::Texture &texture);
-  
+  const sf::Vector2f& position() const;
   void render(sf::RenderWindow& window);
 
 private:
