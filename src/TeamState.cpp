@@ -54,6 +54,11 @@ void TeamState::update() {
     if (m_loading) {
         m_loadingImg.rotate(3);
     }
+    if (m_client.wait()) {
+      m_loading=false;
+      p_game->changeState(new PlayState(p_game, m_teams[m_client.selected()], m_client.receive(), m_client.send()));
+    }
+    // std::cout << m_client.send() << " " << m_client.receive() << " " << m_client.selected() << std::endl;
 }
 void TeamState::render(sf::RenderWindow& window) {
     window.draw(m_background);
@@ -77,42 +82,33 @@ void TeamState::keyboard(sf::Keyboard::Key& key) {
         m_selected = (m_selected == 0 ? m_teams.size()-1 : m_selected-1);
     } else if (key == sf::Keyboard::Key::Space) {
         // Uvodimo socket koji ce naci prazan port, i cuvamo port
-        sf::UdpSocket socket;
-        sf::SocketSelector selector;
-        socket.bind(sf::Socket::AnyPort);
-        selector.add(socket);
-        unsigned short port_receive = socket.getLocalPort();
+        // void
+        // socket.send(packet,ip,20000);
 
-        sf::IpAddress ip = sf::IpAddress::getLocalAddress();
-        sf::Packet packet;
+        // unsigned short port_send=-1,port;
+        // int selected;
+        // while (1) {
+          // if (selector.wait(sf::milliseconds(1))) {
+          //   if (socket.receive(packet,ip,port) == sf::UdpSocket::Done)
+          //     if (packet >> port_send >> selected)
+          //        break;
+          // }
+        // }
 
-        packet << m_selected;
-        std::cout << m_selected << std::endl;
-
-        socket.send(packet,ip,20000);
-
-        unsigned short port_send=-1,port;
-        int selected;
-        while (1) {
-          if (selector.wait(sf::milliseconds(1))) {
-            if (socket.receive(packet,ip,port) == sf::UdpSocket::Done)
-              if (packet >> port_send >> selected)
-                 break;
-          }
-        }
-
-        socket.unbind();
+        // socket.unbind();
 
         // std::cout << port_receive << " " << port_send << std::endl;
         /*
         * Probati da se konektuje, tj. poveze sa mrezom.
         * Ako protivnickog igraca jos nema, ili sta vec onda ide ovaj kod:
         */
-        //m_loading = true;
-        //return;
+        m_client.send(m_selected);
+
+        m_loading = true;
+        return;
         // u suprotnom prelazi u PlayState, izmenicemo argumente da se posalje i
         // naziv protivnicke ekipe
-        p_game->changeState(new PlayState(p_game, m_teams[selected], port_receive, port_send));
+        // p_game->changeState(new PlayState(p_game, m_teams[m_client.selected()], m_client.receive(), m_client.send()));
         return;// mora return da se ne bi izvrsilo ovo setTeams nakon promene
     } else if (key == sf::Keyboard::Key::BackSpace) {
         if (m_loading) {
