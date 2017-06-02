@@ -17,6 +17,7 @@ public:
     void keyboard(sf::Keyboard::Key& key);
     void mouse(sf::Event::MouseButtonEvent& event);
     void resetBall();
+    void isGoal(Goal &goal1 , Goal &goal2);
 private:
   Entity* m_ball;
 	Entity* m_serbian_chetnik;

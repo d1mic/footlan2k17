@@ -35,6 +35,7 @@ public:
     // bool colisionField();
     void checkBoundaryCollision();
     void checkGoalCollision(Goal &goal, Goal &goal2);
+    bool isInGoal(Goal &goal , Goal &goal2);
 
 private:
     sf::Vector2f m_position; // Mozda staviti Vector2f

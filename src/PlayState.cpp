@@ -27,6 +27,7 @@ void PlayState::update() {
   //m_serbian_chetnik->update();
   m_team1->update();
 	m_ball->update();
+  isGoal(*m_goal_home,*m_goal_away);
   //m_serbian_chetnik->checkEntityCollision(*m_ball);
 }
 void PlayState::render(sf::RenderWindow& window) {
@@ -47,6 +48,14 @@ void PlayState::keyboard(sf::Keyboard::Key& key) {
 }
 void PlayState::mouse(sf::Event::MouseButtonEvent& event) {
   m_team1->mouse(event);
+}
+
+void PlayState::isGoal(Goal &goal1 , Goal &goal2){
+  if(m_ball->isInGoal(goal1,goal2)){
+    m_team1->reset();
+    resetBall();
+  }
+  m_ball->checkGoalCollision(goal1,goal2);
 }
 void PlayState::resetBall(){
   m_ball->setPosition(WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
