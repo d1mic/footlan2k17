@@ -154,19 +154,20 @@ void Entity::checkGoalCollision(Goal &goal , Goal &goal2)
 
 
 }
-bool Entity::isInGoal(Goal &goal , Goal &goal2)
+int Entity::isInGoal(Goal &goal , Goal &goal2)
 {
-  if (m_image.getGlobalBounds().left < goal.position().x + GOAL_WIDTH - 9 && m_image.getGlobalBounds().left + 2*m_radius > goal.position().x + 9 &&
-      m_image.getGlobalBounds().top < goal.position().y + GOAL_HEIGHT - m_radius/2 && 2*m_radius + m_image.getGlobalBounds().top > goal.position().y)
+  if (m_image.getGlobalBounds().left < goal.position().x + GOAL_WIDTH - m_radius && m_image.getGlobalBounds().left + 2*m_radius > goal.position().x + m_radius &&
+      m_image.getGlobalBounds().top < goal.position().y + GOAL_HEIGHT - m_radius && 2*m_radius + m_image.getGlobalBounds().top > goal.position().y)
   {
-      return true;
+
+      return 1;
   }
-  if (m_image.getGlobalBounds().left < goal2.position().x + GOAL_WIDTH - 9 && m_image.getGlobalBounds().left + 2*m_radius > goal2.position().x + 9 &&
-      m_image.getGlobalBounds().top < goal2.position().y + GOAL_HEIGHT - m_radius/2 && 2*m_radius + m_image.getGlobalBounds().top > goal2.position().y)
+  if (m_image.getGlobalBounds().left < goal2.position().x + GOAL_WIDTH - m_radius && m_image.getGlobalBounds().left + 2*m_radius > goal2.position().x + m_radius &&
+      m_image.getGlobalBounds().top < goal2.position().y + GOAL_HEIGHT && 2*m_radius + m_image.getGlobalBounds().top > goal2.position().y + GOAL_HEIGHT - m_radius)
   {
-      return true;
+      return 2;
   }
-  return false;
+  return 0;
 }
 void Entity::checkEntityCollision(Entity& other)
 {

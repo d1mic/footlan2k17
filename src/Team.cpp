@@ -1,20 +1,25 @@
 #include "headers/Team.h"
 
-Team::Team(const sf::Texture& texture, Entity* ball,Goal *goal,Goal *goal2, unsigned int port_listen, unsigned int port_send)
+Team::Team(const sf::Texture& texture, Entity* ball,Formation *f,Goal *goal,Goal *goal2, unsigned int port_listen, unsigned int port_send)
   : m_client(port_listen)
   , m_port_send(port_send)
 {
+  // formacija
+  m_f = f;
   //centralni igrac
-  m_players.push_back(new Entity( WINDOW_WIDTH/2  , WINDOW_HEIGHT - 250, texture,0,0));
+  m_players.push_back(new Entity( m_f->center().x  , m_f->center().y, texture,0,0));
   // levi igrac
-  m_players.push_back(new Entity( 120  , WINDOW_HEIGHT - 120, texture,0,0));
+  m_players.push_back(new Entity( m_f->left().x  , m_f->left().y, texture,0,0));
   // desni igrac
-  m_players.push_back(new Entity(WINDOW_WIDTH - 120, WINDOW_HEIGHT -120, texture,0,0));
+  m_players.push_back(new Entity(m_f->right().x, m_f->right().y, texture,0,0));
   // lopta
   m_ball = ball;
   //goal
   m_goal1 = goal;
   m_goal2 = goal2;
+
+  // Formation
+  m_f = f;
   // kada nije selektovan nijedan igrac, bice vrednost veca od velicine niza
 
   m_selected = m_players.size() + 1;
@@ -52,6 +57,7 @@ void Team::collisionTeammates(size_t index) {
       m_players[index]->checkEntityCollision(*m_players[i]);
     }
 }
+
 
 void Team::mouse(sf::Event::MouseButtonEvent& event) {
   if (event.button == sf::Mouse::Button::Left) {
@@ -103,13 +109,13 @@ void Team::findSelectedPlayer(int x, int y) {
 void Team::reset(){
 
     // centralni igrac
-    m_players[0]->setPosition( WINDOW_WIDTH/2  , WINDOW_HEIGHT - 250);
+    m_players[0]->setPosition( m_f->center().x  , m_f->center().y);
     m_players[0]->setDirection(0,0);
     // levi igrac
-    m_players[1]->setPosition( 120  , WINDOW_HEIGHT - 120);
+    m_players[1]->setPosition( m_f->left().x  , m_f->left().y);
     m_players[1]->setDirection(0,0);
     //desni igrac
-    m_players[2]->setPosition( WINDOW_WIDTH - 120  , WINDOW_HEIGHT - 120);
+    m_players[2]->setPosition( m_f->right().x  , m_f->right().y);
     m_players[2]->setDirection(0,0);
 
 }

@@ -2,13 +2,14 @@
 #define TEAM_H_
 
 #include "Entity.h"
+#include "Formation.h"
 #include "consts.h"
 #include "client.h"
 #include <vector>
 
 class Team {
 public:
-    Team(const sf::Texture& texture, Entity* ball,Goal *goal,Goal *goal2, unsigned int port_listen, unsigned int port_send);
+    Team(const sf::Texture& texture, Entity* ball,Formation *f, Goal *goal,Goal *goal2, unsigned int port_listen, unsigned int port_send);
     ~Team();
     void render(sf::RenderWindow& window);
     void update();
@@ -24,6 +25,7 @@ private:
     Entity* m_ball;
     Goal *m_goal1;
     Goal *m_goal2;
+    Formation *m_f;
     // I pokazivac na protivnicki tim
     size_t m_selected;
     unsigned int m_port_send;
