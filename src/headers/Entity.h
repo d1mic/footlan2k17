@@ -31,7 +31,7 @@ public:
     void update();
     void render(sf::RenderWindow& window);
 
-    void checkEntityCollision(Entity& other);
+    bool checkEntityCollision(Entity& other);
     // bool colisionField();
     void checkBoundaryCollision();
     void checkGoalCollision(Goal &goal, Goal &goal2);

@@ -169,7 +169,7 @@ int Entity::isInGoal(Goal &goal , Goal &goal2)
   }
   return 0;
 }
-void Entity::checkEntityCollision(Entity& other)
+bool Entity::checkEntityCollision(Entity& other)
 {
   sf::Vector2f distanceVect(other.position().x-m_position.x, other.position().y-m_position.y);
 
@@ -250,7 +250,9 @@ void Entity::checkEntityCollision(Entity& other)
     m_direction.x = cosine * vFinal0.x - sine * vFinal0.y;
     m_direction.y = cosine * vFinal0.y + sine * vFinal0.x;
     other.setDirection(cosine * vFinal1.x - sine * vFinal1.y,cosine * vFinal1.y + sine * vFinal1.x);
+    return true;
   }
+  return false;
 }
 
 float Entity::distanceBetweenPoints(float x1, float y1, float x2, float y2)
