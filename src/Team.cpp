@@ -34,6 +34,7 @@ void Team::update(){
       m_players[i]->checkEntityCollision(*m_ball); // kolizija pojedinca sa loptom
       m_players[i]->checkGoalCollision(*m_goal1, *m_goal2);
       collisionTeammates(i); // kolizija sa saigracima
+      collisionEnemy(i);
 
       m_players[i]->update();
     }
@@ -122,4 +123,11 @@ Team& Team::enemy() {
 
 void Team::setEnemy(Team* other){
   m_enemy = other;
+}
+void Team::collisionEnemy(size_t index) {
+    size_t size = m_players.size();
+
+    for (size_t i = 0; i < size; i++) {
+      m_players[index]->checkEntityCollision(m_enemy->player(i));
+    }
 }

@@ -37,6 +37,7 @@ private:
     unsigned int m_port_send;
 
     void collisionTeammates(size_t index);
+    void collisionEnemy(size_t index);
     void findSelectedPlayer(int x, int y);
 };
 
