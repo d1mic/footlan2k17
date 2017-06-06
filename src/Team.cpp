@@ -1,7 +1,7 @@
 #include "headers/Team.h"
 
-Team::Team(const sf::Texture& texture, Entity* ball,Formation *f,Goal *goal,Goal *goal2, unsigned int port_listen, unsigned int port_send)
-  : m_client(port_listen)
+Team::Team(const sf::Texture& texture, Entity* ball,Formation *f,Goal *goal,Goal *goal2, unsigned int port_listen, unsigned int port_send, std::string ip)
+  : m_client(port_listen,ip)
   , m_port_send(port_send)
 {
   // formacija

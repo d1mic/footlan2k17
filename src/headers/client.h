@@ -9,7 +9,7 @@
 class client {
 public:
   client();
-  client(unsigned short port);
+  client(unsigned short port,std::string ip);
 
   sf::IpAddress getAddress () const;
   void setAddress (sf::IpAddress ipAddress);

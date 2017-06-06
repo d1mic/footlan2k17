@@ -56,7 +56,7 @@ void TeamState::update() {
     }
     if (m_client.wait()) {
       m_loading=false;
-      p_game->changeState(new PlayState(p_game, m_teams[m_client.selected()], m_client.receive(), m_client.send()));
+      p_game->changeState(new PlayState(p_game, m_teams[m_selected], m_teams[m_client.selected()], m_client.receive(), m_client.send(), m_client.ip()));
     }
     // std::cout << m_client.send() << " " << m_client.receive() << " " << m_client.selected() << std::endl;
 }

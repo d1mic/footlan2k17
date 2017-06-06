@@ -5,13 +5,13 @@ client::client ()
 {
 }
 
-client::client(unsigned short port)
+client::client(unsigned short port, std::string ip)
   {
     m_port=port;
     bindPort();
     m_selector.add(m_receiver);
     m_ipAddress=sf::IpAddress::getLocalAddress();
-    //m_ipAddress_send=sf::IpAddress::getLocalAddress();
+    m_ipAddress_send=sf::IpAddress(ip);
   }
 
 void client::bindPort()

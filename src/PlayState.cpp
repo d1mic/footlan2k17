@@ -1,6 +1,6 @@
 #include "headers/PlayState.h"
 
-PlayState::PlayState(Game* game, const std::string& team,unsigned short receive_port, unsigned short send_port)
+PlayState::PlayState(Game* game, const std::string& team, const std::string& team2, unsigned short receive_port, unsigned short send_port, std::string ip)
     :State(game)
 {
   m_ball = new Entity(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, game->textures()->get("ball"),0,0);
@@ -12,8 +12,8 @@ PlayState::PlayState(Game* game, const std::string& team,unsigned short receive_
   m_form_away = new Formation(120, 120, WINDOW_WIDTH-120, 120, WINDOW_WIDTH/2 , 250 );
 
 
-  m_team1 = new Team(game->textures()->get(team), m_ball,m_form_home, m_goal_home,m_goal_away, receive_port, send_port);
-  m_team2 = new Team(game->textures()->get(team), m_ball,m_form_away, m_goal_home,m_goal_away, receive_port, send_port);
+  m_team1 = new Team(game->textures()->get(team), m_ball,m_form_home, m_goal_home,m_goal_away, receive_port, send_port, ip);
+  m_team2 = new Team(game->textures()->get(team2), m_ball,m_form_away, m_goal_home,m_goal_away, receive_port, send_port, ip);
 
   m_field.setTexture(p_game->textures()->get("field"));
 	m_field.setScale(0.677,0.625);

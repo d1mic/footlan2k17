@@ -9,7 +9,7 @@
 
 class Team {
 public:
-    Team(const sf::Texture& texture, Entity* ball,Formation *f, Goal *goal,Goal *goal2, unsigned int port_listen, unsigned int port_send);
+    Team(const sf::Texture& texture, Entity* ball,Formation *f, Goal *goal,Goal *goal2, unsigned int port_listen, unsigned int port_send, std::string ip);
     ~Team();
     void render(sf::RenderWindow& window);
     void update();

@@ -2,6 +2,7 @@
 #define CLINETCONNECTION_H
 
 #include <SFML/Network.hpp>
+#include <string>
 
 class ClientConnection {
 public:
@@ -11,6 +12,7 @@ public:
   unsigned short send();
   unsigned short receive();
   int selected();
+  std::string ip();
 
 private:
   sf::UdpSocket m_socket;
@@ -18,7 +20,8 @@ private:
   unsigned short m_port_receive;
   unsigned short m_port_send;
   sf::Packet m_packet;
-  sf::IpAddress m_ip;
+  std::string m_ip;
+  // sf::IpAddress m_ip;
   int m_selected;
 };
 #endif

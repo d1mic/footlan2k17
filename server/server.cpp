@@ -3,7 +3,7 @@
 #include <iostream>
 
 void clear(unsigned short *port1,sf::Packet &packet_send1,unsigned short *port2,sf::Packet &packet_send2);
-void send(unsigned short port1,sf::Packet packet_send1,int nation1,unsigned short port2,sf::Packet packet_send2,int nation2,sf::IpAddress ip);
+void send(unsigned short port1,sf::Packet packet_send1,int nation1,unsigned short port2,sf::Packet packet_send2,int nation2,sf::IpAddress ip,std::string ip1,std::string ip2);
 
 sf::UdpSocket socket;
 
@@ -16,6 +16,7 @@ int main ()
   sf::Packet packet_send1,packet_send2,packet_receive;
   sf::SocketSelector selector;
   selector.add(socket);
+  std::string ip1,ip2;
 
   while (true) {
     if (selector.wait(sf::milliseconds(1))) {
@@ -23,13 +24,15 @@ int main ()
         if (port1==0) {
           if (packet_receive >> nation1) {
             port1=port;
+            ip1=ip.toString();
           }
         }
         else if (port2==0) {
           if (packet_receive >> nation2)
             port2=port;
+            ip2=ip.toString();
           // socket.unbind();
-          send(port1,packet_send1,nation1,port2,packet_send2,nation2,ip);
+          send(port1,packet_send1,nation1,port2,packet_send2,nation2,ip,ip1,ip2);
           // socket.bind(20000);
           clear(&port1,packet_send1,&port2,packet_send2);
         }
@@ -40,12 +43,12 @@ int main ()
   return 0;
 }
 
-void send(unsigned short port1,sf::Packet packet_send1,int nation1,unsigned short port2,sf::Packet packet_send2,int nation2,sf::IpAddress ip)
+void send(unsigned short port1,sf::Packet packet_send1,int nation1,unsigned short port2,sf::Packet packet_send2,int nation2,sf::IpAddress ip,std::string ip1,std::string ip2)
 {
-  packet_send1 << port2 << nation2;
-  socket.send(packet_send1,ip,port1);
-  packet_send2 << port1 << nation1;
-  socket.send(packet_send2,ip,port2);
+  packet_send1 << port2 << nation2 << ip2;
+  socket.send(packet_send1,ip1,port1);
+  packet_send2 << port1 << nation1 << ip1;
+  socket.send(packet_send2,ip2,port2);
 }
 
 void clear(unsigned short *port1,sf::Packet &packet_send1,unsigned short *port2,sf::Packet &packet_send2)

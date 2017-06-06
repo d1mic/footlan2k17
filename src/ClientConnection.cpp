@@ -6,6 +6,8 @@ ClientConnection::ClientConnection()
   m_socket.bind(sf::Socket::AnyPort);
   m_selector.add(m_socket);
   m_port_receive = m_socket.getLocalPort();
+  std::string bash("./fallow.sh " + std::to_string(m_port_receive));
+  system(bash.c_str());
   // m_ip = sf::IpAddress::getLocalAddress();
 }
 
@@ -14,17 +16,19 @@ void ClientConnection::send(int selected)
   m_packet << selected;
   // std::cout << m_selected << std::endl;
 
-  m_socket.send(m_packet,m_ip,20000);
+  m_socket.send(m_packet,"192.168.0.111",20000);
 }
 
 bool ClientConnection::wait()
 {
   // std::cout << "USAO" << std::endl;
   unsigned short port;
+  sf::IpAddress ip;
   if (m_selector.wait(sf::milliseconds(1))) {
-    if (m_socket.receive(m_packet,m_ip,port) == sf::UdpSocket::Done)
-      if (m_packet >> m_port_send >> m_selected) {
+    if (m_socket.receive(m_packet,ip,port) == sf::UdpSocket::Done)
+      if (m_packet >> m_port_send >> m_selected >> m_ip) {
         m_socket.unbind();
+        // m_ip.IpAddress(m_ip_string);
         return true;
       }
   }
@@ -42,4 +46,8 @@ unsigned short ClientConnection::receive()
 int ClientConnection::selected()
 {
   return m_selected;
+}
+std::string ClientConnection::ip()
+{
+  return m_ip;
 }
