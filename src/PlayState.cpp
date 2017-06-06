@@ -14,7 +14,7 @@ PlayState::PlayState(Game* game, const std::string& team, const std::string& tea
 
   // Inicijalizacija drugog tima i povezivanje
   m_team2 = new Team(game->textures()->get(team2), m_ball, m_goal_home,m_goal_away, receive_port, send_port, ip);
-  m_team2->setFormation(new Formation(120, 120, WINDOW_WIDTH-120, 120, WINDOW_WIDTH/2 , 250 ));
+  m_team2->setFormation(new Formation(WINDOW_WIDTH-120, 120, 120, 120, WINDOW_WIDTH/2 , 250 ));
 
   m_team1->setEnemy(m_team2);
   m_team2->setEnemy(m_team1);
