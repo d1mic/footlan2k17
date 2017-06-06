@@ -9,13 +9,16 @@
 
 class Team {
 public:
-    Team(const sf::Texture& texture, Entity* ball,Formation *f, Goal *goal,Goal *goal2, unsigned int port_listen, unsigned int port_send, std::string ip);
+    Team(const sf::Texture& texture, Entity* ball, Goal *goal,Goal *goal2, unsigned int port_listen, unsigned int port_send, const std::string& ip);
     ~Team();
     void render(sf::RenderWindow& window);
     void update();
+
     void mouse(sf::Event::MouseButtonEvent& event);
+    
     void reset();
     void receiveMessage();
+    void setFormation(Formation* formation);
 
     Entity& player(size_t index) const;
     client m_client;
@@ -25,7 +28,7 @@ private:
     Entity* m_ball;
     Goal *m_goal1;
     Goal *m_goal2;
-    Formation *m_f;
+    Formation *m_formation;
     // I pokazivac na protivnicki tim
     size_t m_selected;
     unsigned int m_port_send;

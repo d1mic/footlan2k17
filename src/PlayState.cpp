@@ -8,12 +8,13 @@ PlayState::PlayState(Game* game, const std::string& team, const std::string& tea
   m_goal_home = new Goal((WINDOW_WIDTH- GOAL_WIDTH)/2, 0, game->textures()->get("goal2"));
   m_goal_away = new Goal((WINDOW_WIDTH - GOAL_WIDTH)/2, WINDOW_HEIGHT - GOAL_HEIGHT , game->textures()->get("goal"));
 
-  m_form_home = new Formation(120  , WINDOW_HEIGHT - 120, WINDOW_WIDTH -120 , WINDOW_HEIGHT - 120,  WINDOW_WIDTH/2  , WINDOW_HEIGHT - 250);
-  m_form_away = new Formation(120, 120, WINDOW_WIDTH-120, 120, WINDOW_WIDTH/2 , 250 );
+  // Inicijalizacija prvog tima i povezivanje
+  m_team1 = new Team(game->textures()->get(team), m_ball, m_goal_home,m_goal_away, receive_port, send_port, ip);
+  m_team1->setFormation(new Formation(120  , WINDOW_HEIGHT - 120, WINDOW_WIDTH -120 , WINDOW_HEIGHT - 120,  WINDOW_WIDTH/2  , WINDOW_HEIGHT - 250));
 
-
-  m_team1 = new Team(game->textures()->get(team), m_ball,m_form_home, m_goal_home,m_goal_away, receive_port, send_port, ip);
-  m_team2 = new Team(game->textures()->get(team2), m_ball,m_form_away, m_goal_home,m_goal_away, receive_port, send_port, ip);
+  // Inicijalizacija drugog tima i povezivanje
+  m_team2 = new Team(game->textures()->get(team2), m_ball, m_goal_home,m_goal_away, receive_port, send_port, ip);
+  m_team2->setFormation(new Formation(120, 120, WINDOW_WIDTH-120, 120, WINDOW_WIDTH/2 , 250 ));
 
   m_field.setTexture(p_game->textures()->get("field"));
 	m_field.setScale(0.677,0.625);
@@ -26,26 +27,23 @@ PlayState::PlayState(Game* game, const std::string& team, const std::string& tea
 }
 PlayState::~PlayState() {
   delete m_ball;
-  //delete m_serbian_chetnik;
+  
   delete m_goal_home;
   delete m_goal_away;
   delete m_team1;
   delete m_team2;
-  delete m_form_away;
-  delete m_form_home;
 }
 void PlayState::update() {
-  //m_serbian_chetnik->update();
+  
   m_team1->update();
   m_team2->update();
 	m_ball->update();
   isGoal(*m_goal_home,*m_goal_away);
-  //m_serbian_chetnik->checkEntityCollision(*m_ball);
+  
 }
 void PlayState::render(sf::RenderWindow& window) {
   window.draw(m_field);
 	m_ball->render(window);
-	//m_serbian_chetnik->render(window);
   m_team1->render(window);
   m_team2->render(window);
   m_goal_home->render(window);
@@ -79,3 +77,4 @@ void PlayState::resetBall(){
   m_ball->setPosition(WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
   m_ball->setDirection(0,0);
 }
+//m_serbian_chetnik->render(window);

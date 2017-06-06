@@ -1,32 +1,5 @@
 {
-    "files.associations": {
-        "array": "cpp",
-        "functional": "cpp",
-        "istream": "cpp",
-        "tuple": "cpp",
-        "utility": "cpp",
-        "system_error": "cpp",
-        "iostream": "cpp",
-        "*.tcc": "cpp",
-        "cctype": "cpp",
-        "clocale": "cpp",
-        "cmath": "cpp",
-        "cstdint": "cpp",
-        "cstdio": "cpp",
-        "cstdlib": "cpp",
-        "ctime": "cpp",
-        "cwchar": "cpp",
-        "cwctype": "cpp",
-        "exception": "cpp",
-        "initializer_list": "cpp",
-        "iosfwd": "cpp",
-        "limits": "cpp",
-        "memory": "cpp",
-        "new": "cpp",
-        "ostream": "cpp",
-        "stdexcept": "cpp",
-        "streambuf": "cpp",
-        "type_traits": "cpp",
-        "typeinfo": "cpp"
-    }
+	"files.associations": {
+		"vector": "cpp"
+	}
 }

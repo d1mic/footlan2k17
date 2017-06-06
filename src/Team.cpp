@@ -1,33 +1,30 @@
 #include "headers/Team.h"
 
-Team::Team(const sf::Texture& texture, Entity* ball,Formation *f,Goal *goal,Goal *goal2, unsigned int port_listen, unsigned int port_send, std::string ip)
+Team::Team(const sf::Texture& texture, Entity* ball, Goal *goal,Goal *goal2, unsigned int port_listen, unsigned int port_send, const std::string& ip)
   : m_client(port_listen,ip)
   , m_port_send(port_send)
 {
-  // formacija
-  m_f = f;
-  //centralni igrac
-  m_players.push_back(new Entity( m_f->center().x  , m_f->center().y, texture,0,0));
-  // levi igrac
-  m_players.push_back(new Entity( m_f->left().x  , m_f->left().y, texture,0,0));
-  // desni igrac
-  m_players.push_back(new Entity(m_f->right().x, m_f->right().y, texture,0,0));
+  
+
+  for (size_t i = 0; i < 3; i++) {
+    m_players.push_back(new Entity(0, 0, texture, 0, 0));
+  }
+  
   // lopta
   m_ball = ball;
   //goal
   m_goal1 = goal;
   m_goal2 = goal2;
 
-  // Formation
-  m_f = f;
+  
   // kada nije selektovan nijedan igrac, bice vrednost veca od velicine niza
-
   m_selected = m_players.size() + 1;
 }
 Team::~Team() {
     for (size_t i = 0; i < m_players.size(); i++) {
       delete m_players[i];
     }
+    delete m_formation;
 }
 void Team::update(){
 
@@ -58,21 +55,13 @@ void Team::collisionTeammates(size_t index) {
     }
 }
 
-
 void Team::mouse(sf::Event::MouseButtonEvent& event) {
   if (event.button == sf::Mouse::Button::Left) {
-    /*
-    * Kada se desi left click event (pritiskanje/pustanje)
-    * proverava se da li je neki igrac selektovan.
-    * Ako nije selektovan, to znaci da je mis pritisnut i proveravam
-    * na kog igraca je kliknuto. A ako je igrac selektovan i desio se
-    * event, to znaci da se desilo odpustanje i tu idu kalkulacije
-    */
-    // ukoliko nije selektovan nijedan, m_selected ce biti vece od broja igraca
+    
     if (m_selected > m_players.size()) {
       findSelectedPlayer(event.x, event.y);
     } else {
-      // ja sam mislio da ce bolje raditi za .center al ipak je bolje ovako sa .position
+      
       double hit_x = (m_players[m_selected]->position().x - event.x)/10;
       double hit_y = (m_players[m_selected]->position().y - event.y)/10;
 
@@ -80,13 +69,13 @@ void Team::mouse(sf::Event::MouseButtonEvent& event) {
       const double hit_max = 20;
       hit_x = ((std::abs(hit_x) > hit_max) ? (hit_x > 0 ? hit_max : - hit_max) : hit_x);
       hit_y = ((std::abs(hit_y) > hit_max) ? (hit_y > 0 ? hit_max : - hit_max) : hit_y);
-      //std::cout << hit_x << " " << hit_y << std::endl;
+      
 
       m_client.send(m_port_send,m_selected,hit_x,hit_y);
       m_players[m_selected]->setDirection(hit_x,hit_y);
 
       std::cout << m_selected << " " << hit_x << " " << hit_y << std::endl;
-      //std::cout << "Selektovan je igrac: " << m_selected << "na poziciji " << event.x << " " << event.y << std::endl;
+      
       m_selected = m_players.size() + 1;
     };
   }
@@ -95,9 +84,6 @@ void Team::findSelectedPlayer(int x, int y) {
   for (size_t i = 0; i < m_players.size(); i++) {
     Entity* p = m_players[i];
 
-    // srediti ovo za proveru da li je u igracu
-    // Resiti se ovih konstanti 100 i ubaciti sta vec treba
-    // jer u suprotnom ovako hvata poziciju izvan igraca
     if (x >= p->position().x-p->radius() && x <= p->position().x+p->radius()) {
       if (y >= p->position().y-p->radius() && y <= p->position().y+p->radius()) {
         m_selected = i;
@@ -109,13 +95,13 @@ void Team::findSelectedPlayer(int x, int y) {
 void Team::reset(){
 
     // centralni igrac
-    m_players[0]->setPosition( m_f->center().x  , m_f->center().y);
+    m_players[0]->setPosition( m_formation->center().x  , m_formation->center().y);
     m_players[0]->setDirection(0,0);
     // levi igrac
-    m_players[1]->setPosition( m_f->left().x  , m_f->left().y);
+    m_players[1]->setPosition( m_formation->left().x  , m_formation->left().y);
     m_players[1]->setDirection(0,0);
     //desni igrac
-    m_players[2]->setPosition( m_f->right().x  , m_f->right().y);
+    m_players[2]->setPosition( m_formation->right().x  , m_formation->right().y);
     m_players[2]->setDirection(0,0);
 
 }
@@ -123,4 +109,9 @@ void Team::reset(){
 void Team::receiveMessage()
 {
   m_client.receive(m_players);
+}
+
+void Team::setFormation(Formation* formation) {
+  m_formation = formation;
+  reset();
 }
