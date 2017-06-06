@@ -27,19 +27,19 @@ PlayState::PlayState(Game* game, const std::string& team, const std::string& tea
 }
 PlayState::~PlayState() {
   delete m_ball;
-  
+
   delete m_goal_home;
   delete m_goal_away;
   delete m_team1;
   delete m_team2;
 }
 void PlayState::update() {
-  
+
   m_team1->update();
   m_team2->update();
 	m_ball->update();
   isGoal(*m_goal_home,*m_goal_away);
-  
+
 }
 void PlayState::render(sf::RenderWindow& window) {
   window.draw(m_field);
@@ -59,7 +59,6 @@ void PlayState::keyboard(sf::Keyboard::Key& key) {
 }
 void PlayState::mouse(sf::Event::MouseButtonEvent& event) {
   m_team1->mouse(event);
-  m_team2-> mouse(event);
 }
 
 void PlayState::isGoal(Goal &goal1 , Goal &goal2){

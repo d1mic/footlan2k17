@@ -4,19 +4,19 @@ Team::Team(const sf::Texture& texture, Entity* ball, Goal *goal,Goal *goal2, uns
   : m_client(port_listen,ip)
   , m_port_send(port_send)
 {
-  
+
 
   for (size_t i = 0; i < 3; i++) {
     m_players.push_back(new Entity(0, 0, texture, 0, 0));
   }
-  
+
   // lopta
   m_ball = ball;
   //goal
   m_goal1 = goal;
   m_goal2 = goal2;
 
-  
+
   // kada nije selektovan nijedan igrac, bice vrednost veca od velicine niza
   m_selected = m_players.size() + 1;
 }
@@ -57,11 +57,11 @@ void Team::collisionTeammates(size_t index) {
 
 void Team::mouse(sf::Event::MouseButtonEvent& event) {
   if (event.button == sf::Mouse::Button::Left) {
-    
+
     if (m_selected > m_players.size()) {
       findSelectedPlayer(event.x, event.y);
     } else {
-      
+
       double hit_x = (m_players[m_selected]->position().x - event.x)/10;
       double hit_y = (m_players[m_selected]->position().y - event.y)/10;
 
@@ -69,13 +69,13 @@ void Team::mouse(sf::Event::MouseButtonEvent& event) {
       const double hit_max = 20;
       hit_x = ((std::abs(hit_x) > hit_max) ? (hit_x > 0 ? hit_max : - hit_max) : hit_x);
       hit_y = ((std::abs(hit_y) > hit_max) ? (hit_y > 0 ? hit_max : - hit_max) : hit_y);
-      
+
 
       m_client.send(m_port_send,m_selected,hit_x,hit_y);
       m_players[m_selected]->setDirection(hit_x,hit_y);
 
       std::cout << m_selected << " " << hit_x << " " << hit_y << std::endl;
-      
+
       m_selected = m_players.size() + 1;
     };
   }
@@ -114,4 +114,12 @@ void Team::receiveMessage()
 void Team::setFormation(Formation* formation) {
   m_formation = formation;
   reset();
+}
+
+Team& Team::enemy() {
+  return *m_enemy;
+}
+
+void Team::setEnemy(Team* other){
+  m_enemy = other;
 }

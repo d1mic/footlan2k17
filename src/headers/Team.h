@@ -15,10 +15,13 @@ public:
     void update();
 
     void mouse(sf::Event::MouseButtonEvent& event);
-    
+
     void reset();
     void receiveMessage();
     void setFormation(Formation* formation);
+
+    Team& enemy();
+    void setEnemy(Team* other);
 
     Entity& player(size_t index) const;
     client m_client;
@@ -29,7 +32,7 @@ private:
     Goal *m_goal1;
     Goal *m_goal2;
     Formation *m_formation;
-    // I pokazivac na protivnicki tim
+    Team *m_enemy;
     size_t m_selected;
     unsigned int m_port_send;
 
