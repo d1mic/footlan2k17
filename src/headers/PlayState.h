@@ -29,8 +29,11 @@ private:
   Entity* m_ball;
 
   sf::Vector2u score;
+  sf::Text m_score_home;
+  sf::Text m_separator;
+  sf::Text m_score_away;
   sf::Sprite m_field;
-  
+
   unsigned short m_receive_port;
   unsigned short m_send_port;
 };

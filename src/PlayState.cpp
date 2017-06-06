@@ -25,6 +25,20 @@ PlayState::PlayState(Game* game, const std::string& team, const std::string& tea
 
   score.x = 0;
   score.y = 0;
+
+  m_score_home = sf::Text(std::to_string(score.x), p_game->fonts()->get("menu_font") , 40);
+  m_score_home.setRotation(90);
+  m_score_home.setPosition(WINDOW_WIDTH - 20 , WINDOW_HEIGHT/2.0 - (m_score_home.getGlobalBounds().height) - 15);
+
+  m_separator = sf::Text(":", p_game->fonts()->get("menu_font") , 40 );
+  m_separator.setRotation(90);
+  m_separator.setPosition(WINDOW_WIDTH - 20 , WINDOW_HEIGHT/2.0 - (m_separator.getGlobalBounds().height)/2 );
+
+  m_score_away = sf::Text( std::to_string(score.y), p_game->fonts()->get("menu_font") , 40);
+  m_score_away.setRotation(90);
+  m_score_away.setPosition(WINDOW_WIDTH - 20 , WINDOW_HEIGHT/2.0 + 15);
+
+
   // m_receive_port = receive_port;
   // m_send_port = send_port;
 }
@@ -45,7 +59,11 @@ void PlayState::update() {
 
 }
 void PlayState::render(sf::RenderWindow& window) {
+
   window.draw(m_field);
+  window.draw(m_separator);
+  window.draw(m_score_home);
+  window.draw(m_score_away);
 	m_ball->render(window);
   m_team1->render(window);
   m_team2->render(window);
@@ -53,11 +71,6 @@ void PlayState::render(sf::RenderWindow& window) {
   m_goal_away->render(window);
 }
 void PlayState::keyboard(sf::Keyboard::Key& key) {
-  /* Stavljeno za proveru reset funkcija
-  if( key == sf::Keyboard::R){
-     m_team1->reset();
-     resetBall();
-  }*/
 
 }
 void PlayState::mouse(sf::Event::MouseButtonEvent& event) {
@@ -68,10 +81,15 @@ void PlayState::isGoal(Goal &goal1 , Goal &goal2){
   if(int g = m_ball->isInGoal(goal1,goal2) ){
     if(g == 1) score.x += 1;
     if(g == 2) score.y += 1;
+
+    m_score_home.setString(std::to_string(score.x));
+    m_score_away.setString(std::to_string(score.y));
+
     m_team1->reset();
     m_team2->reset();
     resetBall();
-    std::cout << score.x << score.y << std::endl;
+
+
   }
   m_ball->checkGoalCollision(goal1,goal2);
 }
