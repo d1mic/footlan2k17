@@ -56,7 +56,7 @@ void client::receive (std::vector<Entity*> players)
       // Uzimamo podatke iz paketa
       if (m_packet_receive >> number >> x >> y) {
         std::cout << number << " " << x << " " << y << std::endl;
-        players[number]->setDirection(x,y);
+        players[number]->setDirection(-x,-y);
       }
     }
   }

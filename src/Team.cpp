@@ -108,7 +108,7 @@ void Team::reset(){
 
 void Team::receiveMessage()
 {
-  m_client.receive(m_players);
+  m_client.receive(m_enemy->m_players);
 }
 
 void Team::setFormation(Formation* formation) {
