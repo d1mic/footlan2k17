@@ -137,7 +137,7 @@ bool Team::stoped(){
     size_t size = m_players.size();
 
     for (size_t i = 0; i < size; i++) {
-      if(m_players[i]->direction().x != 0 || m_players[i]->direction().y != 0 ){
+      if(abs(m_players[i]->direction().x) > 0.0001 || abs(m_players[i]->direction().y) > 0.0001 ){
         return false;
       }
     }
