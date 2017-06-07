@@ -45,7 +45,7 @@ TeamState::TeamState(Game* game)
 
     m_waitmsg = sf::Text("waiting for the oponent", p_game->fonts()->get("menu_font2"), 20);
     m_waitmsg.setPosition(WINDOW_WIDTH/2 - 150, WINDOW_HEIGHT - 200);
-    
+
 }
 TeamState::~TeamState() {
 
@@ -57,7 +57,7 @@ void TeamState::update() {
     }
     if (m_client.wait()) {
       m_loading=false;
-      p_game->changeState(new PlayState(p_game, m_teams[m_selected], m_teams[m_client.selected()], m_client.receive(), m_client.send(), m_client.ip()));
+      p_game->changeState(new PlayState(p_game, m_teams[m_selected], m_teams[m_client.selected()], m_client.receive(), m_client.send(), m_client.ip(),m_client.turn()));
     }
     // std::cout << m_client.send() << " " << m_client.receive() << " " << m_client.selected() << std::endl;
 }

@@ -13,7 +13,7 @@ public:
 
   sf::IpAddress getAddress () const;
   void setAddress (sf::IpAddress ipAddress);
-  void receive (std::vector<Entity*> players);
+  bool receive (std::vector<Entity*> players);
   void send (const unsigned short port, int number, double x, double y);
   void start ();
   void bindPort();

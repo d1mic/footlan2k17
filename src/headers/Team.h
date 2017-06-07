@@ -9,7 +9,7 @@
 
 class Team {
 public:
-    Team(const sf::Texture& texture, Entity* ball, Goal *goal,Goal *goal2, unsigned int port_listen, unsigned int port_send, const std::string& ip);
+    Team(const sf::Texture& texture, Entity* ball, Goal *goal,Goal *goal2, unsigned int port_listen, unsigned int port_send, const std::string& ip, bool turn);
     ~Team();
     void render(sf::RenderWindow& window);
     void update();
@@ -27,6 +27,7 @@ public:
     client m_client;
 
     bool stoped();
+    bool turn();
 
 private:
     std::vector<Entity*> m_players;
@@ -37,6 +38,7 @@ private:
     Team *m_enemy;
     size_t m_selected;
     unsigned int m_port_send;
+    bool m_turn;
 
     void collisionTeammates(size_t index);
     void collisionEnemy(size_t index);
