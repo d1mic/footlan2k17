@@ -1,9 +1,9 @@
-# FootLAN 2k17
+# :soccer: FootLAN 2k17 :soccer:
 FootLAN is a multiplayer game similar to popular [Pocket Soccer](https://en.wikipedia.org/wiki/DX-Ball) written in C++ programming using [SFML](https://www.sfml-dev.org/) library. The game is played using [LAN](https://en.wikipedia.org/wiki/Local_area_network) connection between two devices conneted.
 
 ![logo](https://github.com/MATF-RS17/RS11-footlan2k17/blob/master/screenshots/logo2.jpg)
 
-## Getting Started
+## :computer: Getting Started
 
 These instructions will get you a copy of the game up and running on your local machine. This version is mainly tested on Ubuntu.
 
@@ -54,7 +54,7 @@ $ sudo ./main
 ```
 on both computers.
 
-## Gameplay
+## :video_game: Gameplay
 
 When start game is selected both players choose the team that they want to play with.
 The player that chooses first , plays first. Both players simutaniously try to kick the ball into opponnents net.
@@ -67,10 +67,10 @@ Player kicks the ball by selecting his own player and pulling him in the opposit
 
 ![logo](https://github.com/MATF-RS17/RS11-footlan2k17/blob/master/screenshots/gameplay.png)
 
-## Built using
+## :wrench: Built using
 * [SFML](https://www.sfml-dev.org/) - game development library
 
-## Authors
+## :mortar_board: Authors
 
 * **Ivan Šeša** - [ivke080](https://github.com/ivke080)
 
@@ -78,7 +78,7 @@ Player kicks the ball by selecting his own player and pulling him in the opposit
 
 * **Nikola Dimić** -  [dimaria95](https://github.com/dimaria95/)
 
-## License
+## :book: License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
