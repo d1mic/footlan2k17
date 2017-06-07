@@ -74,7 +74,12 @@ void PlayState::keyboard(sf::Keyboard::Key& key) {
 
 }
 void PlayState::mouse(sf::Event::MouseButtonEvent& event) {
-  m_team1->mouse(event);
+
+  // ako je klikut igrac i svi saigraci su zaustavljeni onda moze da se igrac
+  // treba dodati uslov i da je potez u toku ili tako nesto za mrezu
+  if(m_team1->stoped() && m_team2->stoped() ){
+    m_team1->mouse(event);
+  }
 }
 
 void PlayState::isGoal(Goal &goal1 , Goal &goal2){

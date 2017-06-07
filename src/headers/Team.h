@@ -26,6 +26,8 @@ public:
     Entity& player(size_t index) const;
     client m_client;
 
+    bool stoped();
+
 private:
     std::vector<Entity*> m_players;
     Entity* m_ball;

@@ -131,3 +131,13 @@ void Team::collisionEnemy(size_t index) {
       m_players[index]->checkEntityCollision(m_enemy->player(i));
     }
 }
+bool Team::stoped(){
+    size_t size = m_players.size();
+
+    for (size_t i = 0; i < size; i++) {
+      if(m_players[i]->direction().x != 0 || m_players[i]->direction().y != 0 ){
+        return false;
+      }
+    }
+    return true;
+}

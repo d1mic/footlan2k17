@@ -16,7 +16,7 @@ void ClientConnection::send(int selected)
   m_packet << selected;
   // std::cout << m_selected << std::endl;
 
-  m_socket.send(m_packet,"192.168.0.111",20000);
+  m_socket.send(m_packet,"10.0.2.15",20000);
 }
 
 bool ClientConnection::wait()
