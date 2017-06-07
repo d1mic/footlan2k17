@@ -24,6 +24,11 @@ MenuState::MenuState(Game* game)
     m_selected = 0;
 
     setBallPosition();
+
+    m_backgroundMusic.openFromFile("../assets/sounds/menu_music.ogg");
+    m_backgroundMusic.setLoop(true);
+    m_backgroundMusic.setVolume(60);
+    m_backgroundMusic.play();
 }
 MenuState::~MenuState() {
 

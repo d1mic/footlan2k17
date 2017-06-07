@@ -20,6 +20,8 @@ private:
     sf::Sprite m_ball;
     std::vector<sf::Text> m_options;
     sf::Text m_aboutText;
+    sf::Music m_backgroundMusic;
+
     short m_selected;
     bool m_about;
 

@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS= -c -Wall -std=c++11
 LDFLAGS=
-LIBFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network
+LIBFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network -lsfml-audio
 SOURCES = main.cpp Game.cpp Entity.cpp State.cpp PlayState.cpp MenuState.cpp Goal.cpp TeamState.cpp Formation.cpp Team.cpp client.cpp ClientConnection.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=main

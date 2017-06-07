@@ -45,6 +45,7 @@ TeamState::TeamState(Game* game)
 
     m_waitmsg = sf::Text("waiting for the oponent", p_game->fonts()->get("menu_font2"), 20);
     m_waitmsg.setPosition(WINDOW_WIDTH/2 - 150, WINDOW_HEIGHT - 200);
+    
 }
 TeamState::~TeamState() {
 

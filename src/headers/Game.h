@@ -29,8 +29,10 @@ private:
 	void start();
 	void checkForUpdate();
 	sf::RenderWindow m_gameWindow;
+	
 	TextureManager m_textures;
 	FontManager m_fonts;
+
 	State* m_currState; // Ovo je pokazivac na trenutni State (na pocetku MenuState)
 	sf::Clock m_clock;
 };

@@ -2,6 +2,7 @@
 #define STATE_H_
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "ResourceManager.h"
 #include "consts.h"
 
