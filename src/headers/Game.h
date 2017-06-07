@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "consts.h"
 #include "ResourceManager.h"
 #include "PlayState.h"
@@ -20,6 +21,7 @@ public:
 	// ove dve metode, a bice ih vise, vracaju menadzere resursa
 	const TextureManager* textures() const;
 	const FontManager* fonts() const;
+	const SoundBufferManager& sounds() const;
 	void changeState(State* state); // Metoda koja dozvoljava promenu iz jednog u drugi State
 	void exit();
 private:
@@ -32,6 +34,7 @@ private:
 	
 	TextureManager m_textures;
 	FontManager m_fonts;
+	SoundBufferManager m_sounds;
 
 	State* m_currState; // Ovo je pokazivac na trenutni State (na pocetku MenuState)
 	sf::Clock m_clock;

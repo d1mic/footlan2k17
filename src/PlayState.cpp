@@ -38,6 +38,10 @@ PlayState::PlayState(Game* game, const std::string& team, const std::string& tea
   m_score_away.setRotation(90);
   m_score_away.setPosition(WINDOW_WIDTH - 20 , WINDOW_HEIGHT/2.0 + 15);
 
+  m_whistle.setBuffer(p_game->sounds().get("whistle"));
+  m_whistle.setVolume(70);
+  m_whistle.play();
+
 
   // m_receive_port = receive_port;
   // m_send_port = send_port;
@@ -88,7 +92,7 @@ void PlayState::isGoal(Goal &goal1 , Goal &goal2){
     m_team1->reset();
     m_team2->reset();
     resetBall();
-
+    m_whistle.play();
 
   }
   m_ball->checkGoalCollision(goal1,goal2);

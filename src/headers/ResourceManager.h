@@ -48,5 +48,6 @@ const Resource& ResourceManager<Identifier, Resource>::get(Identifier id) const
 
 typedef ResourceManager<std::string, sf::Texture> TextureManager;
 typedef ResourceManager<std::string, sf::Font> FontManager;
+typedef ResourceManager<std::string, sf::SoundBuffer> SoundBufferManager;
 
 #endif

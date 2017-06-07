@@ -23,6 +23,10 @@ Game::Game()
 	m_fonts.load("menu_font2", "../assets/fonts/menu_font_2.otf");
 	m_fonts.load("about_font", "../assets/fonts/about_font.ttf");
 
+	m_sounds.load("whistle", "../assets/sounds/whistle.wav");
+	m_sounds.load("collide", "../assets/sounds/collide.wav");
+	m_sounds.load("pull", "../assets/sounds/pull.wav");
+
 	m_currState = new MenuState(this);
 }
 Game::~Game()
@@ -79,6 +83,9 @@ const TextureManager* Game::textures() const {
 }
 const FontManager* Game::fonts() const {
 	return &m_fonts;
+}
+const SoundBufferManager& Game::sounds() const {
+	return m_sounds;
 }
 void Game::changeState(State* state) {
 	delete m_currState;

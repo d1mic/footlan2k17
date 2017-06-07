@@ -33,6 +33,7 @@ private:
   sf::Text m_separator;
   sf::Text m_score_away;
   sf::Sprite m_field;
+  sf::Sound m_whistle;
 
   unsigned short m_receive_port;
   unsigned short m_send_port;
