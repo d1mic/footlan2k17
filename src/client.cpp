@@ -40,7 +40,7 @@ void client::setAddress (sf::IpAddress ipAddress)
   m_ipAddress_send=ipAddress;
 }
 
-void client::receive (std::vector<Entity*> players)
+bool client::receive (std::vector<Entity*> players)
 {
   int number;
   double x,y;
@@ -57,9 +57,11 @@ void client::receive (std::vector<Entity*> players)
       if (m_packet_receive >> number >> x >> y) {
         std::cout << number << " " << x << " " << y << std::endl;
         players[number]->setDirection(-x,-y);
+        return true;
       }
     }
   }
+  return false;
 }
 
 // sf::Packet& operator <<(sf::Packet& packet, sf::Vector2f direction)

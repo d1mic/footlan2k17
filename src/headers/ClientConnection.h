@@ -13,7 +13,8 @@ public:
   unsigned short receive();
   int selected();
   std::string ip();
-
+  bool turn();
+  
 private:
   sf::UdpSocket m_socket;
   sf::SocketSelector m_selector;
@@ -23,5 +24,6 @@ private:
   std::string m_ip;
   // sf::IpAddress m_ip;
   int m_selected;
+  bool m_turn;
 };
 #endif

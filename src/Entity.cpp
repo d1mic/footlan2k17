@@ -119,6 +119,13 @@ void Entity::checkBoundaryCollision()
   }
   m_direction.x*=0.970;
   m_direction.y*=0.970;
+
+  if( 0.0001 > abs(m_direction.x)){
+    m_direction.x = 0;
+  }
+  if(0.0001 > abs(m_direction.y)){
+    m_direction.y = 0;
+  }
 }
 void Entity::checkGoalCollision(Goal &goal , Goal &goal2)
 {

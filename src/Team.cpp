@@ -1,8 +1,9 @@
 #include "headers/Team.h"
 
-Team::Team(const sf::Texture& texture, Entity* ball, Goal *goal,Goal *goal2, unsigned int port_listen, unsigned int port_send, const std::string& ip)
+Team::Team(const sf::Texture& texture, Entity* ball, Goal *goal,Goal *goal2, unsigned int port_listen, unsigned int port_send, const std::string& ip, bool turn)
   : m_client(port_listen,ip)
   , m_port_send(port_send)
+  , m_turn(turn)
 {
 
 
@@ -71,7 +72,7 @@ void Team::mouse(sf::Event::MouseButtonEvent& event) {
       hit_x = ((std::abs(hit_x) > hit_max) ? (hit_x > 0 ? hit_max : - hit_max) : hit_x);
       hit_y = ((std::abs(hit_y) > hit_max) ? (hit_y > 0 ? hit_max : - hit_max) : hit_y);
 
-
+      m_turn = false;
       m_client.send(m_port_send,m_selected,hit_x,hit_y);
       m_players[m_selected]->setDirection(hit_x,hit_y);
 
@@ -109,7 +110,8 @@ void Team::reset(){
 
 void Team::receiveMessage()
 {
-  m_client.receive(m_enemy->m_players);
+  if (m_client.receive(m_enemy->m_players))
+    m_turn = true;
 }
 
 void Team::setFormation(Formation* formation) {
@@ -130,4 +132,19 @@ void Team::collisionEnemy(size_t index) {
     for (size_t i = 0; i < size; i++) {
       m_players[index]->checkEntityCollision(m_enemy->player(i));
     }
+}
+bool Team::stoped(){
+    size_t size = m_players.size();
+
+    for (size_t i = 0; i < size; i++) {
+      if(m_players[i]->direction().x != 0 || m_players[i]->direction().y != 0 ){
+        return false;
+      }
+    }
+    return true;
+}
+
+bool Team::turn()
+{
+  return m_turn;
 }

@@ -10,7 +10,7 @@
 
 class PlayState : public State {
 public:
-    PlayState(Game* game, const std::string& team, const std::string& team2, unsigned short receive_port, unsigned short send_port, std::string ip);
+    PlayState(Game* game, const std::string& team, const std::string& team2, unsigned short receive_port, unsigned short send_port, std::string ip, bool turn);
     ~PlayState();
 
     void update();
