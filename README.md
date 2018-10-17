@@ -1,7 +1,7 @@
 # :soccer: FootLAN 2k17 :soccer:
 FootLAN is a multiplayer game similar to popular [Pocket Soccer](https://play.google.com/store/apps/details?id=com.rastergrid.game.pocketsoccer&hl=sr) written in C++ programming using [SFML](https://www.sfml-dev.org/) library. The game is played using [LAN](https://en.wikipedia.org/wiki/Local_area_network) connection between two devices conneted.
 
-![logo](https://github.com/dimaria95/footlan2k17/tree/master/screenshots)
+![logo](https://github.com/dimaria95/footlan2k17/tree/master/screenshots/logo2.png)
 
 ## :computer: Getting Started
 
